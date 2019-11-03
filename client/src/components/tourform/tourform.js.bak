@@ -1,0 +1,319 @@
+import React, { Component } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import 'date-fns';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import TextField from '@material-ui/core/TextField';
+import SignIn from './SignIn'
+import { Container } from '@material-ui/core';
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
+
+
+
+export default class TourForm extends Component {
+
+  submitClick = () => {
+    console.log('submit')
+  }
+
+  render() {
+    return (
+      <div>
+
+        <ButtonAppBar />
+        <MaterialUIPickers />
+        <Selects />
+        <GroupedButtons />
+
+        <CountButtons />
+
+        <BudgetAndDetails onSubmit={function (formData) {
+          console.log(formData);
+        }
+        }></BudgetAndDetails>
+
+      </div>
+    )
+  }
+}
+
+function ButtonAppBar() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            GPOON
+          </Typography>
+          <Button color="inherit" onClick={() => window.open(<SignIn />)}>Login</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
+
+
+function MaterialUIPickers() {
+  // The first commit of Material-UI
+  const [selectedStartDate, setSelectedDate] = React.useState(new Date());
+
+
+  const handleDateChange = date => {
+    setSelectedDate(date);
+
+  };
+
+  console.log(selectedStartDate);
+
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container justify="space-around">
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="여행 일자"
+          value={selectedStartDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+
+
+      </Grid>
+    </MuiPickersUtilsProvider>
+  );
+}
+
+
+
+
+const SelectStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
+function Selects() {
+  const classes = SelectStyles();
+  const [state, setState] = React.useState({
+    city: '',
+    name: '',
+  });
+
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
+
+  const handleChange = name => event => {
+    setState({
+      ...state,
+      [name]: event.target.value,
+    });
+    
+  };
+  console.log(state.city);
+  return (
+    <div className={classes.root}>
+
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
+          City
+        </InputLabel>
+        <Select
+          native
+          value={state.city}
+          onChange={handleChange('city')}
+          labelWidth={labelWidth}
+          inputProps={{
+            name: 'city',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+
+          <option value="" />
+          <option value={"서울"}>서울</option>
+          <option value={"부산"}>부산</option>
+          <option value={"제주"}>제주</option>
+          <option value={"대구"}>대구</option>
+          <option value={"전주"}>전주</option>
+          <option value={"경주"}>경주</option>
+
+        </Select>
+        
+      </FormControl>
+
+    </div>
+
+    
+  );
+}
+
+
+
+function GroupedButtons() {
+  return (
+    <Grid container spacing={20}>
+      <Grid container spacing={1} justify="center" alignItems="center">
+        <Grid item xs={12}>
+          <ButtonGroup fullWidth color="primary" aria-label="outlined primary button group">
+            <Button>서울</Button>
+            <Button>부산</Button>
+            <Button>제주</Button>
+            <Button>대구</Button>
+            <Button>경주</Button>
+            <Button>전주</Button>
+          </ButtonGroup>
+        </Grid>
+
+      </Grid>
+
+
+    </Grid>
+
+  );
+}
+
+class CountButtons extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+    }
+  }
+
+
+  incrementCount() {
+    this.setState((prevState, props) => {
+      return { count: prevState.count + 1 }
+    })
+  }
+
+  decrementCount() {
+    this.setState((prevState, props) => {
+      return { count: prevState.count - 1 }
+    })
+  }
+
+  
+  render() {
+    let { count } = this.state
+
+    console.log(this.state.count);
+    return (
+
+
+      <Grid container direction="row">
+        <Button title={"-"} onClick={() => this.decrementCount()}>-</Button>
+        <h2>인원 수:{count}</h2>
+        <Button title={"+"} onClick={() => this.incrementCount()}>+</Button>
+      </Grid>
+    );
+  }
+}
+
+class BudgetAndDetails extends Component {
+
+  state = {
+    budget: '',
+    details: '',
+  }
+
+  changeFormHandler(ev) {
+
+    this.setState({ [ev.target.name]: ev.target.value });
+    console.log(this.state);
+  }
+
+  render() {
+    return (
+
+      <Container>
+        <form onSubmit={function (ev) {
+          ev.preventDefault();
+          this.props.onSubmit(this.state);
+        }.bind(this)}>
+
+          <TextField
+            id="budget"
+            name="budget"
+            label="예산"
+            type="number"
+            required
+            rows="1"
+            value={this.state.budget}
+            onChange={this.changeFormHandler.bind(this)}
+            //className={classes.textField}
+            margin="normal"
+            variant="outlined"
+          />
+
+          <TextField
+            id="details"
+            name="details"
+            label="희망 활동"
+            multiline
+            required
+            rows="6"
+            fullWidth
+            helperText="희망 활동/관심사/주의 사항을 적어주세요"
+            value= {this.state.details}
+            onChange={this.changeFormHandler.bind(this)}
+            //className={classes.textField}
+            margin="normal" a
+            variant="outlined"
+          />
+
+          <Button type="submit" variant="contained" color="primary">
+            제출
+          </Button>
+        </form>
+      </Container>
+    );
+
+  }
+}
+
