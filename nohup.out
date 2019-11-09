@@ -60,3 +60,128 @@ npm ERR! This is probably not a problem with npm. There is likely additional log
 
 npm ERR! A complete log of this run can be found in:
 npm ERR!     /home/bitnami/.npm/_logs/2019-10-14T13_48_13_935Z-debug.log
+
+> application-data-handling@1.0.0 server /home/bitnami/merging-signup
+> nodemon server.js
+
+[33m[nodemon] 1.19.3[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching dir(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node server.js`[39m
+events.js:180
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event at:
+    at internal/fs/streams.js:173:12
+    at FSReqCallback.wrapper [as oncomplete] (fs.js:477:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! application-data-handling@1.0.0 server: `nodemon server.js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the application-data-handling@1.0.0 server script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/bitnami/.npm/_logs/2019-11-04T05_51_46_271Z-debug.log
+Hello world!
+
+> application-data-handling@1.0.0 server /home/bitnami/merging-signup
+> nodemon server.js
+
+[33m[nodemon] 1.19.3[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching dir(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node server.js`[39m
+events.js:180
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event at:
+    at internal/fs/streams.js:173:12
+    at FSReqCallback.wrapper [as oncomplete] (fs.js:477:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! application-data-handling@1.0.0 server: `nodemon server.js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the application-data-handling@1.0.0 server script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/bitnami/.npm/_logs/2019-11-04T05_58_11_269Z-debug.log
+
+> application-data-handling@1.0.0 server /home/bitnami/merging-signup
+> nodemon server.js
+
+[33m[nodemon] 1.19.3[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching dir(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node server.js`[39m
+events.js:180
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event at:
+    at internal/fs/streams.js:173:12
+    at FSReqCallback.wrapper [as oncomplete] (fs.js:477:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! application-data-handling@1.0.0 server: `nodemon server.js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the application-data-handling@1.0.0 server script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/bitnami/.npm/_logs/2019-11-04T05_59_06_361Z-debug.log
+
+> application-data-handling@1.0.0 server /home/bitnami/merging-signup
+> nodemon server.js
+
+[33m[nodemon] 1.19.3[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching dir(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node server.js`[39m
+events.js:180
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event at:
+    at internal/fs/streams.js:173:12
+    at FSReqCallback.wrapper [as oncomplete] (fs.js:477:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! application-data-handling@1.0.0 server: `nodemon server.js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the application-data-handling@1.0.0 server script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/bitnami/.npm/_logs/2019-11-04T05_59_29_861Z-debug.log

@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
       'pax': parseInt(newTourRequestRaw['count'], 10),
       'budget': parseInt(newTourRequestRaw['budget'], 10),
       'description': newTourRequestRaw['details'],
-      'requester_id': 3,
+      'requester_id':11,
       'tour_location_id': location_id_record[0]['location_id']
     }
 
