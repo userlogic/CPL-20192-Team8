@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -20,8 +20,7 @@ import Select from "@material-ui/core/Select";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
-import { setSessionCookie, getSessionCookie, SessionContext } from '../../session';
-
+import { SessionContext } from "../../session";
 
 import "date-fns";
 
@@ -44,7 +43,8 @@ export default class TourForm extends Component {
       count: 0,
       budget: 0,
       details: "",
-      tourDate: new Date()
+      tourDate: new Date(),
+      requester_id: -1
     };
   }
 
@@ -58,6 +58,8 @@ export default class TourForm extends Component {
     if (user.id === undefined) {
       this.props.history.push("/login");
       return;
+    } else {
+      this.state.requester_id = user.id;
     }
   }
 
@@ -248,7 +250,7 @@ function CityDropdown(props) {
 
 function GroupedButtons() {
   return (
-    <Grid container spacing={20}>
+    <Grid container spacing={0}>
       <Grid container spacing={1} justify="center" alignItems="center">
         <Grid item xs={12}>
           <ButtonGroup
@@ -317,7 +319,6 @@ class BudgetAndDetails extends Component {
             onChange={this.props.onChangeSet}
             //className={classes.textField}
             margin="normal"
-            a
             variant="outlined"
           />
 
@@ -329,4 +330,3 @@ class BudgetAndDetails extends Component {
     );
   }
 }
-
