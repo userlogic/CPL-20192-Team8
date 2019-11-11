@@ -3,6 +3,18 @@ exports.__esModule = true;
 var React = require("react");
 var Cookies = require("js-cookie");
 exports.setSessionCookie = function (session) {
+    const curSession = Cookies.get("session");
+
+    // console.log(curSession);
+    // console.log(session);
+
+    if (curSession === session) {
+        return;
+    }
+    else {
+        console.log(curSession);
+        console.log(session);
+    }
     Cookies.remove("session");
     Cookies.set("session", session, { expires: 14 });
 };

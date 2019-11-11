@@ -20,6 +20,8 @@ import Select from "@material-ui/core/Select";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
+import { setSessionCookie, getSessionCookie, SessionContext } from '../../session';
+
 
 import "date-fns";
 
@@ -44,6 +46,19 @@ export default class TourForm extends Component {
       details: "",
       tourDate: new Date()
     };
+  }
+
+  static contextType = SessionContext;
+
+  componentDidMount() {
+    const user = this.context;
+    console.log(user);
+    console.log(user.id);
+    // console.log(getSessionCookie());
+    if (user.id === undefined) {
+      this.props.history.push("/login");
+      return;
+    }
   }
 
   onSubmitForm = ev => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,7 +17,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Grid from '@material-ui/core/Grid';
 import { styled } from '@material-ui/core/styles';
-
+import { setSessionCookie, getSessionCookie, SessionContext } from '../../session';
+import { Link } from "react-router-dom";
 
 
 export default class CommentBox extends React.Component {
@@ -32,12 +33,22 @@ export default class CommentBox extends React.Component {
           {id: 2, user: "aaa", body: "This is my first comment on this forum",
           date:"asdfasd",pax:"3",budget:"asd",description:"33", location:"daegu"},]
 */
-
-        
       };
     }
+   
+    static contextType = SessionContext;
 
     componentDidMount() {
+      const user = this.context;
+      console.log(user);
+      console.log(user.id);
+      console.log(getSessionCookie());
+      
+      if (user.id === undefined) {
+        this.props.history.push("/login");
+        return;
+      }
+
       fetch('api/tour-requests/cards')
       .then(response => response.json())
       .then(json => {
@@ -49,7 +60,7 @@ export default class CommentBox extends React.Component {
         console.log(json);
 
         this.setState({tourRequests: json});
-      }) 
+      })      
     }
     
     
@@ -68,6 +79,7 @@ export default class CommentBox extends React.Component {
         <div className="comment-box">
           <Grid container justify="center">                    
           <h2>Tour Requests</h2>
+          <Link to="/logout">Logout here</Link>
         </Grid>
           <h4 className="comment-count">
             {this._getTourRequestsTitle(tourRequests.length)}

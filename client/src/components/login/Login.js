@@ -76,11 +76,11 @@ export default function SignIn() {
     }).then(function(response) {
       return response.json()
     }).then(function(json) {
-      console.log(json);
+      // console.log(json);
       if (!json['success'])
         return;
-      
-      setSessionCookie({ 'id': json['customer_id']})      
+      // console.log(json['customer_id']);
+      setSessionCookie({ id: json['customer_id']});      
       setToCardView(true);
     })
   }
