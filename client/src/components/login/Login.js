@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link as Link2 } from 'react-router-dom';
 import { setSessionCookie } from '../../session';
 
 function Copyright() {
@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn({history}) {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -81,9 +81,10 @@ export default function SignIn() {
         return;
       // console.log(json['customer_id']);
       setSessionCookie({ id: json['customer_id']});      
-      setToCardView(true);
+      // setToCardView(true);
+      history.push('/cardview');
     })
-  }
+  } 
 
   if(toCardView === true) {
     return <Redirect to='/cardview'/>
@@ -99,6 +100,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <Link2 to="/cardview">Cardview</Link2>
           <form className={classes.form} onSubmit={onlogin} noValidate>
             <TextField
               variant="outlined"

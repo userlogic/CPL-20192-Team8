@@ -14,30 +14,46 @@ import {SessionContext, getSessionCookie, setSessionCookie } from './session';
 
 const history = createBrowserHistory();
 
-function App() {
+const Routes = () => {
   const [session, setSession] = useState(getSessionCookie());
   useEffect(
     () => {
       setSession(getSessionCookie());
     },
-    // [session]
-    []
+    [session]
   );
 
   return (
 
-  <SessionContext.Provider value={session}>
-  <Router history={history}>
-    <Switch>
-    <Route exact path="/" component={TourForm}/>
-    <Route path="/signup" component={SignUp}/>
-    <Route path="/login" component={Login}/>
-    <Route path="/cardview" component={CardView}/>
-    <Route path="/logout" component={Logout} />
-    <Route path="*" component={ProtectedHandler}/>
-    </Switch>
-</Router>
-</SessionContext.Provider>
+    <SessionContext.Provider value={session}>
+    <Router history={history}>
+      <Switch>
+      <Route exact path="/" component={TourForm}/>
+      <Route path="/signup" component={SignUp}/>
+      <Route path="/login" component={Login}/>
+      <Route path="/cardview" component={CardView}/>
+      <Route path="/logout" component={Logout} />
+      <Route path="*" component={ProtectedHandler}/>
+      </Switch>
+  </Router>
+  </SessionContext.Provider>
+      );
+};
+
+function App() {
+  // const [session, setSession] = useState(getSessionCookie());
+  // useEffect(
+  //   () => {
+  //     setSession(getSessionCookie());
+  //   },
+  //   // [session]
+  //   []
+  // );
+
+  return (
+    <div className="App">
+    <Routes />
+  </div>
     );
 }
 
