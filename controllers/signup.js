@@ -38,7 +38,7 @@ router.post('/guide', async(req, res) => {
     'age': newGuideRaw['age'],
     'sex': newGuideRaw['sex'],
   }
-  console.log(newGude);
+  console.log(newGuIde);
   const guide = await Guide.query()
                             .insert(newGuide)
                             
