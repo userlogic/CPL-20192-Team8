@@ -48,6 +48,29 @@ class Customer extends BaseModel {
       }
     };
   }
+  static get relationMappings() {
+    // Importing models here is a one way to avoid require loops.
+    const TourRequest = require('./TourRequest');
+
+    return {
+      requester: {
+        relation: BaseModel.ManyToManyRelation,
+        // The related model. This can be either a Model
+        // subclass constructor or an absolute file path
+        // to a module that exports one. We use a model
+        // subclass constructor `Animal` here.
+        modelClass: TourRequest,
+        join: {
+          from: 'guide.id',
+          through: {
+            from: 'tour_proposal.guide_id',
+            to: 'tour_proposal.tour_request_id'
+          },
+          to: 'tour_request.id'
+        }
+      }
+    };
+  }
 }
 
 module.exports = {Guide};
