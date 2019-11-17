@@ -15,6 +15,10 @@ import Container from "@material-ui/core/Container";
 import { Link as Link2 } from "react-router-dom";
 // import { Redirect } from "react-router-dom";
 import { setSessionCookie, SessionContext } from "../../session";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 
 function Copyright() {
   return (
@@ -58,6 +62,7 @@ export default function SignIn(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("tourist");
 
   const session = useContext(SessionContext);
   if (session.id !== undefined) {
@@ -65,7 +70,13 @@ export default function SignIn(props) {
   }
 
   const verifyUserLogin = async userDetails => {
-    const loginResponse = await fetch("/api/login", {
+    let apiUrl;
+    if (userType === "tourist") {
+      apiUrl = "/api/login";
+    } else {
+      apiUrl = "/api/login/guide";
+    }
+    const loginResponse = await fetch(apiUrl, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, *cors, same-origin
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -151,10 +162,32 @@ export default function SignIn(props) {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <FormControl component="fieldset">
+            <FormLabel component="legend"></FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="userType"
+              defaultValue="tourist"
+              onChange={ev => {
+                setUserType(ev.target.value);
+              }}
+            >
+              <FormControlLabel
+                value="tourist"
+                control={<Radio />}
+                label="Tourist"
+              />
+              <FormControlLabel
+                value="guide"
+                control={<Radio />}
+                label="Guide"
+              />
+            </RadioGroup>
+            {/* <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            /> */}
+          </FormControl>
           <Button
             type="submit"
             fullWidth
