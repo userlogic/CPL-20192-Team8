@@ -11,6 +11,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 
 // @@@@@@@@@@@--Visual Styling--@@@@@@@@@@@@@@@@
 
@@ -60,6 +64,7 @@ class SignupForm extends Component {
 
   changeFormHandler(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
+    console.log(this.state);
   }
 
   render() {
@@ -127,6 +132,25 @@ class SignupForm extends Component {
               />
             </Grid>
           </Grid>
+          <FormControl component="fieldset">
+            <FormLabel component="legend"></FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="userType"
+              onChange={this.changeFormHandler.bind(this)}
+            >
+              <FormControlLabel
+                value="tourist"
+                control={<Radio />}
+                label="Tourist"
+              />
+              <FormControlLabel
+                value="guide"
+                control={<Radio />}
+                label="Guide"
+              />
+            </RadioGroup>
+          </FormControl>
           <p></p>
           <Button type="submit" fullWidth variant="contained" color="primary">
             Sign Up
@@ -188,4 +212,3 @@ export default function SignUp() {
     </Container>
   );
 }
-
