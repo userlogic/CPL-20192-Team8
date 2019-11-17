@@ -24,43 +24,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function ButtonAppBar(props) {
   const classes = useStyles();
-  const [loginLogoutButton, setLoginLogoutButton] = useState(false);
-  let setLoginLogoutButton2;
-  // let loginLogoutButton;
 
   const session = useContext(SessionContext);
-
-  // useEffect(() => {
-  //   let s = session;
-  //   if (s.id) {
-  //     setLoginLogoutButton(
-  //       <Button
-  //         color="inherit"
-  //         onClick={ev => {
-  //           props.history.push("/logout");
-  //         }}
-  //       >
-  //         Logout
-  //       </Button>
-  //     );
-  //   } else {
-  //     setLoginLogoutButton(
-  //       <Button
-  //         color="inherit"
-  //         onClick={ev => {
-  //           props.history.push("/login");
-  //         }}
-  //       >
-  //         Login
-  //       </Button>
-  //     );
-  //   }
-  // }, [session]);
-
-  // console.log(session);
-
+  let loginLogoutButton;
   if (session.id) {
-    setLoginLogoutButton2 = (
+    loginLogoutButton = (
       <Button
         color="inherit"
         onClick={ev => {
@@ -71,7 +39,7 @@ export default function ButtonAppBar(props) {
       </Button>
     );
   } else {
-    setLoginLogoutButton2 = (
+    loginLogoutButton = (
       <Button
         color="inherit"
         onClick={ev => {
@@ -98,15 +66,7 @@ export default function ButtonAppBar(props) {
           <Typography variant="h6" className={classes.title}>
             GPOON
           </Typography>
-          {/* <Button
-            color="inherit"
-            onClick={ev => {
-              setToLogin(true);
-            }}
-          >
-            Login
-          </Button> */}
-          {setLoginLogoutButton2}
+          {loginLogoutButton}
         </Toolbar>
       </AppBar>
     </div>
