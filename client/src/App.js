@@ -6,6 +6,7 @@ import TourForm from "./components/tourform/tourform";
 import CardView from "./components/cardview/CardView";
 import SignUp from "./components/signup/signup";
 import Logout from "./components/logout/logout";
+import ButtonAppBar from "./components/ButtonAppBar";
 
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
@@ -34,7 +35,10 @@ const Routes = () => {
 
     // setSession(getSessionCookie());
 
-    if (newSessionCookie.id !== session.id) {
+    if (
+      newSessionCookie.id !== session.id ||
+      newSessionCookie.user_type !== session.user_type
+    ) {
       setSession(getSessionCookie());
       console.log("New cookie differs from old cookie -> Set.");
       console.log("session State variable after setSession:");
@@ -44,11 +48,12 @@ const Routes = () => {
     }
 
     // Below array meaning: Not on every render, but only on renders where one of the below state variables has changed.
-  }, [session.id]);
+  }, [session.id, session.user_type]);
 
   return (
     <SessionContext.Provider value={session}>
       <Router history={history}>
+        <Route path="/" component={ButtonAppBar}></Route>
         <Switch>
           <Route
             exact
