@@ -112,7 +112,7 @@ export default class TourForm extends Component {
   render() {
     return (
       <div>
-        <ButtonAppBar />
+        {/* <ButtonAppBar /> */}
         <TourDatePicker
           onChangeSet={this.onChangeSetDate}
           tourDate={this.state.tourDate}
