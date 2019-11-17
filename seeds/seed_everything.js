@@ -1,7 +1,13 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex("tour_request")
+  return knex("tour_proposal")
     .del()
+    .then(() => {
+      return knex("tour_request").del();
+    })
+    .then(() => {
+      return knex("guide").del();
+    })
     .then(() => {
       return knex("customer").del();
     })
@@ -107,7 +113,7 @@ exports.seed = function(knex) {
           tourrequestIds = ids;
           return knex("guide").pluck("guide_id");
         })
-        .then(locationIds => {
+        .then(guideIds => {
           return { guides: guideIds, tour_requests: tourrequestIds };
         });
     })
