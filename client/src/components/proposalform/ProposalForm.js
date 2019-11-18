@@ -24,18 +24,19 @@ export default class ProposalForm extends Component {
   constructor() {
     super();
     this.state = {
-      user: "taylor",
-      date: "11/11",
-      pax: "3",
-      user_budget: "123",
-      description: "wewewewe",
-      location: "daegu",
+      user: 'taylor',
+      date: '11/11',
+      pax: '3',
+      user_budget: '123',
+      description: 'wewewewe',
+      location: 'daegu',
 
-      theme: "",
-      charge: 0,
-      start_time: "00:00",
-      end_time: "",
-      details: ""
+      
+      theme: '',       
+      charge: '',
+      start_time: '12:00',
+      end_time:'13:00',
+      details: '',
     };
   }
 
@@ -82,6 +83,14 @@ export default class ProposalForm extends Component {
     }
   }
 
+  onChangeSetStart = (event) => {
+    this.setState({
+        [event.target.name]: event.target.value,
+        end_time: event.target.value,
+    })
+
+    console.log(this.state)
+}
   onChangeSet = event => {
     this.setState({
       [event.target.name]: event.target.value //Whats this comma?
@@ -111,11 +120,10 @@ export default class ProposalForm extends Component {
             }}
           />
           <Selects onChangeSet={this.onChangeSet} {...this.state} />
-          <BudgetAndDetails
-            onChangeSet={this.onChangeSet}
-            start_time={this.start_time}
-            submitClick={this.submitClick}
-          />
+          <BudgetAndDetails onChangeSet={this.onChangeSet} 
+            onChangeSetStart={this.onChangeSetStart}
+            submitClick={this.submitClick} 
+            {...this.state}/>
         </React.Fragment>
       </div>
     );
@@ -283,42 +291,44 @@ function BudgetAndDetails(props) {
         />
 
         <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              id="time"
-              label="Start time"
-              format="00:00"
-              type="time"
-              defaultValue="12:00"
-              value={props.start_time}
-              onChange={props.onTimeChange}
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true
-              }}
-              inputProps={{
-                step: 600 // 10 min
-              }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              id="time"
-              label="End time"
-              type="time"
-              defaultValue="13:00"
-              value={props.end_time}
-              onChange={props.onChangeSet}
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true
-              }}
-              inputProps={{
-                step: 600 // 10 min
-              }}
-            />
+        <Grid item xs={6}>
+                        <TextField
+                          fullWidth
+                          id="time"
+                          label="Start time"
+                          name="start_time"                         
+                          type="time"
+                          
+                          value={props.start_time}
+                          onChange={props.onChangeSetStart}
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          inputProps={{
+                            step: 600, // 10 min
+                          }}
+                        />
+                        
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          fullWidth
+                          id="time"
+                          label="End time"
+                          name="end_time"                   
+                          type="time"
+                          
+                          value={props.end_time}
+                          onChange={props.onChangeSet}
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          inputProps={{
+                            step: 600, // 10 min
+                          }}
+                        />
           </Grid>
         </Grid>
 
