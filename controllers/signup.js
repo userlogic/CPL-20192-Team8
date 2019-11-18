@@ -37,7 +37,7 @@ router.post("/guide", async (req, res) => {
     age: newGuideRaw["age"],
     sex: newGuideRaw["sex"]
   };
-  console.log(newGuIde);
+  console.log(newGuide);
   const guide = await Guide.query().insert(newGuide);
 
   res.send(guide);

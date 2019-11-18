@@ -70,6 +70,7 @@ export default function SignIn(props) {
   }
 
   const verifyUserLogin = async userDetails => {
+    console.log(userDetails);
     let apiUrl;
     if (userType === "tourist") {
       apiUrl = "/api/login";
@@ -97,20 +98,29 @@ export default function SignIn(props) {
   const onlogin = ev => {
     ev.preventDefault();
 
-    verifyUserLogin({ email: email, password: password }).then(json => {
+    verifyUserLogin({
+      email: email,
+      password: password,
+      user_type: userType
+    }).then(json => {
       console.log(json);
 
       if (json["success"]) {
-        console.log(json["customer_id"]);
+        console.log(json["user_id"]);
 
-        let s = session;
-        s["id"] = json["customer_id"];
-        props.setSessionDown(s);
+        let mutableSession = session;
+        mutableSession["id"] = json["user_id"];
+        mutableSession["user_type"] = json["user_type"];
+        props.setSessionDown(mutableSession);
 
-        setSessionCookie({ id: json["customer_id"] });
+        setSessionCookie({ id: json["user_id"], user_type: json["user_type"] });
         console.log("Login: Set the session cookie.");
         // setToCardView(true);
-        props.history.push("/cardview");
+        if (mutableSession["user_type"] === "guide") {
+          props.history.push("/cardview");
+        } else {
+          props.history.push("/tourform");
+        }
       } else {
         return;
       }

@@ -1,6 +1,6 @@
 const { BaseModel } = require("./BaseModel");
 
-class Customer extends BaseModel {
+class Guide extends BaseModel {
   // Table name is the only required property.
   static get tableName() {
     return "guide";

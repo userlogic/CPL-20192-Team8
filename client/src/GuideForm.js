@@ -30,9 +30,11 @@ export default class GuideForm extends Component {
             description: 'wewewewe',
             location: 'daegu',
 
-
+            
             theme: '',       
             charge: 0,
+            start_time: '00:00',
+            end_time:'',
             details: '',
    
         }
@@ -47,7 +49,12 @@ export default class GuideForm extends Component {
         this.setState({
             [event.target.name]: event.target.value, //Whats this comma?
         })
-        console.log(this.state)
+        console.log(this.state.start_time)
+    }
+
+      
+    onTimeChange(time) {
+      this.setState({time});
     }
 
     render() {
@@ -56,7 +63,7 @@ export default class GuideForm extends Component {
           <React.Fragment>
             <SimpleCard {...this.state}/>
             <Selects onChangeSet={this.onChangeSet} {...this.state}/>
-            <BudgetAndDetails onChangeSet={this.onChangeSet}
+            <BudgetAndDetails onChangeSet={this.onChangeSet} start_time={this.start_time}
             submitClick={this.submitClick}/>
           </React.Fragment>
         </div>
@@ -229,8 +236,6 @@ function BudgetAndDetails(props) {
             <Container
                 className={classes.grid}
                 container
-                       
-                
                 >
                 <form onSubmit={props.submitClick}>
 
@@ -247,8 +252,50 @@ function BudgetAndDetails(props) {
                         margin="normal"
                         variant="outlined"
                     />
+                    <Grid container spacing={2}>                     
+                      <Grid item xs={6}>
+                        <TextField
+                          fullWidth
+                          id="time"
+                          label="Start time"
+                          format='00:00'
+                          type="time"
+                          defaultValue="12:00"
+                          value={props.start_time}
+                          onChange={props.onTimeChange}
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          inputProps={{
+                            step: 600, // 10 min
+                          }}
+                        />
+                        
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          fullWidth
+                          id="time"
+                          label="End time"
+                          type="time"
+                          defaultValue="13:00"
+                          value={props.end_time}
+                          onChange={props.onChangeSet}
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          inputProps={{
+                            step: 600, // 10 min
+                          }}
+                        />
+                        
+                      </Grid>
+                    </Grid>
                     
-                    
+
+
                     <TextField
                         className={classes.details}
                         id="details"

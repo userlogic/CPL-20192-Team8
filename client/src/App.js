@@ -3,20 +3,25 @@ import "./App.css";
 
 import Login from "./components/login/Login";
 import TourForm from "./components/tourform/tourform";
-import CardView from "./components/cardview/CardView";
+import TourRequestPage from "./components/cardview/CardView";
 import SignUp from "./components/signup/signup";
 import Logout from "./components/logout/logout";
+import ButtonAppBar from "./components/ButtonAppBar";
+import LandingPage from "./components/landingpage/LandingPage";
 
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import { SessionContext, getSessionCookie } from "./session";
+import ProposalForm from "./components/proposalform/ProposalForm";
 
 const history = createBrowserHistory();
 
 const Routes = () => {
   // const [test, setTest] = useState(3);
   const [session, setSession] = useState(getSessionCookie());
+  const [selectedTourRequest, setSelectedTourRequest] = useState(null);
+
   // const [session, setSession] = useState(69);
   // console.log(session);
   // setInterval(() => {
@@ -34,7 +39,10 @@ const Routes = () => {
 
     // setSession(getSessionCookie());
 
-    if (newSessionCookie.id !== session.id) {
+    if (
+      newSessionCookie.id !== session.id ||
+      newSessionCookie.user_type !== session.user_type
+    ) {
       setSession(getSessionCookie());
       console.log("New cookie differs from old cookie -> Set.");
       console.log("session State variable after setSession:");
@@ -44,24 +52,43 @@ const Routes = () => {
     }
 
     // Below array meaning: Not on every render, but only on renders where one of the below state variables has changed.
-  }, [session.id]);
+  }, [session.id, session.user_type]);
 
   return (
     <SessionContext.Provider value={session}>
       <Router history={history}>
+        <Route path="/" component={ButtonAppBar}></Route>
         <Switch>
-          <Route
+          {/* <Route
             exact
             path="/"
             render={props => <Login {...props} setSessionDown={setSession} />}
-          />
+          /> */}
+          <Route exact path="/" component={LandingPage} />
           <Route path="/tourform" component={TourForm} />
           <Route path="/signup" component={SignUp} />
+          <Route
+            path="/proposalform"
+            render={props => (
+              <ProposalForm
+                {...props}
+                selectedTourRequest={selectedTourRequest}
+              />
+            )}
+          />
           <Route
             path="/login"
             render={props => <Login {...props} setSessionDown={setSession} />}
           />
-          <Route path="/cardview" component={CardView} />
+          <Route
+            path="/cardview"
+            render={props => (
+              <TourRequestPage
+                {...props}
+                setSelectedTourRequest={setSelectedTourRequest}
+              />
+            )}
+          />
           <Route
             path="/logout"
             render={props => <Logout {...props} setSessionDown={setSession} />}
