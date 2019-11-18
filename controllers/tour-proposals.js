@@ -52,12 +52,12 @@ router.patch("/:id", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   let customerId = req.params.id;
-  const tourproposals = await Tourproposal.query()
+  const tourproposals = await TourProposal.query()
     .eager("[application, guide]")
     .modifyEager("application", builder => {
-      builder.select("requester_id");
-    })
-    .where("requester_id", "=", customerId);
+      builder.select("requester_id", "budget", "pax", "description");
+      builder.where("requester_id", "=", customerId);
+    });
   res.json(tourproposals);
 });
 module.exports = router;
