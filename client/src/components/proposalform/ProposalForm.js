@@ -155,7 +155,7 @@ function SimpleCard(props) {
   // const bull = <span className={classes.bullet}>•</span>;
   let budget = "Budget: ";
   let props2 = props;
-  if (!props.id) {
+  if (props.pax == null) {
     props2 = props.defaultTourRequest;
   }
 
