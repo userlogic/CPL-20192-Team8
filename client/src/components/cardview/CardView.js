@@ -24,7 +24,7 @@ import {
 } from "../../session";
 import { Link } from "react-router-dom";
 
-export default class CommentBox extends React.Component {
+export default class TourRequestPage extends React.Component {
   static contextType = SessionContext;
 
   constructor() {
@@ -50,6 +50,9 @@ export default class CommentBox extends React.Component {
     if (user.id === undefined) {
       this.props.history.push("/login");
       return;
+    } else if (user.user_type === "tourist") {
+      this.props.history.push("/");
+      return;
     }
 
     fetch("api/tour-requests/cards")
@@ -66,6 +69,13 @@ export default class CommentBox extends React.Component {
       });
   }
 
+  applyButtonClick = tourRequestId => {
+    this.props.setSelectedTourRequest(tourRequestId);
+    this.props.history.push("/proposalform");
+
+    return;
+  };
+
   //<CommentForm addTourRequest={this._addTourRequest.bind(this)}/>
   render() {
     const tourRequests = this._getTourRequests();
@@ -75,12 +85,12 @@ export default class CommentBox extends React.Component {
       tourRequestNodes = <div className="comment-list">{tourRequests}</div>;
     }
 
+    console.log(tourRequests);
+
     return (
       <div className="comment-box">
         <Grid container justify="center">
           <h2>Tour Requests</h2>
-          <h2> Id: {this.context.id}</h2>
-          <Link to="/logout">Logout here</Link>
         </Grid>
         <h4 className="comment-count">
           {this._getTourRequestsTitle(tourRequests.length)}
@@ -110,7 +120,7 @@ export default class CommentBox extends React.Component {
     return this.state.tourRequests.map(tourRequest => {
       return (
         <div>
-          <TourRequest
+          <TourRequestCard
             user={tourRequest.user}
             key={tourRequest.id}
             date={tourRequest.tour_date}
@@ -118,6 +128,8 @@ export default class CommentBox extends React.Component {
             budget={tourRequest.budget}
             description={tourRequest.description}
             location={tourRequest.location}
+            tour_request_id={tourRequest.tour_request_id}
+            onButtonClick={this.applyButtonClick}
           />
           <h4></h4>
         </div>
@@ -136,39 +148,6 @@ export default class CommentBox extends React.Component {
   }
 } // end CommentBox component
 
-class CommentForm extends React.Component {
-  render() {
-    return (
-      <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
-        <div className="comment-form-fields">
-          <input
-            placeholder="Name"
-            required
-            ref={input => (this._user = input)}
-          ></input>
-          <br />
-          <textarea
-            placeholder="Comment"
-            rows="4"
-            required
-            ref={textarea => (this._body = textarea)}
-          ></textarea>
-        </div>
-        <div className="comment-form-actions">
-          <button type="submit">Post Comment</button>
-        </div>
-      </form>
-    );
-  } // end render
-
-  _handleSubmit(event) {
-    event.preventDefault(); // prevents page from reloading on submit
-    let user = this._user;
-    let body = this._body;
-    this.props.addTourRequest(user.value, body.value);
-  }
-} // end CommentForm component
-
 const MyCard = styled(Card)({
   // maxWidth: 600,
   // minWidth: 600,
@@ -176,7 +155,7 @@ const MyCard = styled(Card)({
   fullWidth: true
 });
 
-class TourRequest extends React.Component {
+class TourRequestCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -252,7 +231,7 @@ class TourRequest extends React.Component {
                   variant="contained"
                   href="#"
                   className="comment-footer-delete"
-                  onClick={this._seleteComment}
+                  onClick={() => this.props.onButtonClick(this.props)}
                   color="primary"
                 >
                   APPLY
@@ -289,6 +268,7 @@ class TourRequest extends React.Component {
   }
 
   _seleteComment = () => {
+    console.log(this.props.tour_request_id);
     alert("-- SELETE Comment Functionality COMMING SOON...");
   };
 
@@ -336,3 +316,36 @@ class TourRequest extends React.Component {
   
 } // end CommentForm component
  */
+
+// class CommentForm extends React.Component {
+//   render() {
+//     return (
+//       <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+//         <div className="comment-form-fields">
+//           <input
+//             placeholder="Name"
+//             required
+//             ref={input => (this._user = input)}
+//           ></input>
+//           <br />
+//           <textarea
+//             placeholder="Comment"
+//             rows="4"
+//             required
+//             ref={textarea => (this._body = textarea)}
+//           ></textarea>
+//         </div>
+//         <div className="comment-form-actions">
+//           <button type="submit">Post Comment</button>
+//         </div>
+//       </form>
+//     );
+//   } // end render
+
+//   _handleSubmit(event) {
+//     event.preventDefault(); // prevents page from reloading on submit
+//     let user = this._user;
+//     let body = this._body;
+//     this.props.addTourRequest(user.value, body.value);
+//   }
+// } // end CommentForm component

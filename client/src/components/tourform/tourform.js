@@ -58,6 +58,9 @@ export default class TourForm extends Component {
     if (user.id === undefined) {
       this.props.history.push("/login");
       return;
+    } else if (user.user_type === "guide") {
+      this.props.history.push("/");
+      return;
     } else {
       this.state.requester_id = user.id;
     }
