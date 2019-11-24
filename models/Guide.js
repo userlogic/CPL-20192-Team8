@@ -47,6 +47,29 @@ class Guide extends BaseModel {
       }
     };
   }
+
+  $beforeInsert(queryContext) {
+    super.$beforeInsert(queryContext);
+    const { age, sex } = this;
+    let path = "avatars/";
+    if (sex === "M") {
+      path += "man_";
+    } else {
+      path += "woman_";
+    }
+
+    if (age <= 29) {
+      path += "20";
+    } else if (age <= 39) {
+      path += "30";
+    } else {
+      path += "40";
+    }
+
+    path += ".png";
+    this.picture_path = path;
+  }
+
   static get relationMappings() {
     // Importing models here is a one way to avoid require loops.
     const TourRequest = require("./TourRequest");

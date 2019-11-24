@@ -92,16 +92,18 @@ exports.seed = function(knex) {
           password: "abcdef",
           age: 19,
           sex: "M",
-          guide_location_id: locationIds[0]
+          guide_location_id: locationIds[0],
+          picture_path: "avatars/man_20.png"
         },
         {
-          first_name: "Cris",
-          last_name: "Name",
+          first_name: "Jennifer",
+          last_name: "Thompson",
           email: "dd@dd.com",
           password: "abcdef",
           age: 23,
           sex: "F",
-          guide_location_id: locationIds[1]
+          guide_location_id: locationIds[1],
+          picture_path: "avatars/woman_20.png"
         }
       ]);
     })
