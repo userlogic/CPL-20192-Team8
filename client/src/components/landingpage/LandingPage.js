@@ -1,7 +1,6 @@
 import Button from "@material-ui/core/Button";
 import Image from "material-ui-image";
 import ImageSlider from "./ImageSlider";
-import Slide from "./Slide";
 import React, { useState, useContext, useEffect } from "react";
 import { SessionContext } from "../../session";
 
