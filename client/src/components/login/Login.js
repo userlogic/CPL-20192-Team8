@@ -19,6 +19,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import { Column, Row } from "simple-flexbox";
 
 function Copyright() {
   return (
@@ -142,7 +143,7 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Link2 to="/tourrequests">Cardview</Link2>
+        {/* <Link2 to="/tourrequests">Cardview</Link2> */}
         <form className={classes.form} onSubmit={onlogin} noValidate>
           <TextField
             variant="outlined"
@@ -174,6 +175,7 @@ export default function SignIn(props) {
             id="password"
             autoComplete="current-password"
           />
+
           <FormControl component="fieldset">
             <FormLabel component="legend"></FormLabel>
             <RadioGroup
@@ -184,22 +186,25 @@ export default function SignIn(props) {
                 setUserType(ev.target.value);
               }}
             >
-              <FormControlLabel
-                value="tourist"
-                control={<Radio />}
-                label="Tourist"
-              />
-              <FormControlLabel
-                value="guide"
-                control={<Radio />}
-                label="Guide"
-              />
+              <Row>
+                <FormControlLabel
+                  value="tourist"
+                  control={<Radio />}
+                  label="Tourist"
+                />
+                <FormControlLabel
+                  value="guide"
+                  control={<Radio />}
+                  label="Guide"
+                />
+              </Row>
             </RadioGroup>
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
           </FormControl>
+
           <Button
             type="submit"
             fullWidth
