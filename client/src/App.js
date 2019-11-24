@@ -3,11 +3,12 @@ import "./App.css";
 
 import Login from "./components/login/Login";
 import TourForm from "./components/tourform/tourform";
-import TourRequestPage from "./components/cardview/CardView";
+import TourRequestPage from "./components/tourrequests/TourRequests";
 import SignUp from "./components/signup/signup";
 import Logout from "./components/logout/logout";
 import ButtonAppBar from "./components/ButtonAppBar";
 import LandingPage from "./components/landingpage/LandingPage";
+import TourProposals from "./components/tourproposals/TourProposals";
 
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
@@ -65,6 +66,7 @@ const Routes = () => {
             render={props => <Login {...props} setSessionDown={setSession} />}
           /> */}
           <Route exact path="/" component={LandingPage} />
+          <Route path="/tourproposals" component={TourProposals} />
           <Route path="/tourform" component={TourForm} />
           <Route path="/signup" component={SignUp} />
           <Route
@@ -81,7 +83,7 @@ const Routes = () => {
             render={props => <Login {...props} setSessionDown={setSession} />}
           />
           <Route
-            path="/cardview"
+            path="/tourrequests"
             render={props => (
               <TourRequestPage
                 {...props}
@@ -120,7 +122,7 @@ function App() {
 const ProtectedHandler = () => {
   return (
     <div>
-      <Link to="/cardview">Go to cardview here</Link>
+      <Link to="/tourrequests">Go to cardview here</Link>
     </div>
   );
 };

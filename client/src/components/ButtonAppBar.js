@@ -9,6 +9,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 // import { useStyles } from "./tourform/tourform";
 import { SessionContext } from "../session";
+// import { Router, Route, Switch, Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,8 +65,11 @@ export default function ButtonAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            GPOON
+
+          <Typography className={classes.title}>
+            <Link color="inherit" href="/" variant="h6">
+              TourMatch
+            </Link>
           </Typography>
           {loginLogoutButton}
         </Toolbar>

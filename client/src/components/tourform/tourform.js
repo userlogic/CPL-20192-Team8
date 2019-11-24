@@ -85,6 +85,8 @@ export default class TourForm extends Component {
     });
     // TODO: Enter DB
     // TODO: Go to next component/page (Router)
+
+    this.props.history.push("/");
   };
 
   incrementCount = () => {
@@ -157,7 +159,7 @@ function ButtonAppBar() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              GPOON
+              TourMatch
             </Typography>
             <Button
               color="inherit"
