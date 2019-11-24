@@ -52,12 +52,27 @@ router.patch("/:id", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   let customerId = req.params.id;
+  console.log(customerId);
   const tourproposals = await TourProposal.query()
-    .eager("[application, guide]")
+    .joinEager("[application, guide]")
     .modifyEager("application", builder => {
       builder.select("requester_id", "budget", "pax", "description");
-      builder.where("requester_id", "=", customerId);
-    });
+      // builder.where("requester_id", "=", customerId); // All this does is omitting application part if customerId not correct, still keeps proposal/guide parts
+    })
+    .modifyEager("guide", builder => {
+      builder.select(
+        "guide_id",
+        "first_name",
+        "picture_path",
+        "age",
+        "sex",
+        "guide_location_id"
+      );
+      // builder.where("requester_id", "=", customerId); // All this does is omitting application part if customerId not correct, still keeps proposal/guide parts
+    })
+
+    .where("requester_id", customerId);
   res.json(tourproposals);
+  console.log(tourproposals);
 });
 module.exports = router;
