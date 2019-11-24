@@ -14,6 +14,7 @@ import Container from "@material-ui/core/Container";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
+import { Column, Row } from "simple-flexbox";
 import FormLabel from "@material-ui/core/FormLabel";
 
 // @@@@@@@@@@@--Visual Styling--@@@@@@@@@@@@@@@@
@@ -58,7 +59,8 @@ class SignupForm extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      password: ""
+      password: "",
+      userType: ""
     };
   }
 
@@ -68,6 +70,13 @@ class SignupForm extends Component {
   }
 
   render() {
+    // const guideFields = this.getExtraGuideFields();
+    let guideFields = <div></div>;
+
+    if (this.state.userType === "guide") {
+      guideFields = this.getExtraGuideFields();
+    }
+
     return (
       <article>
         <form
@@ -139,18 +148,21 @@ class SignupForm extends Component {
               name="userType"
               onChange={this.changeFormHandler.bind(this)}
             >
-              <FormControlLabel
-                value="tourist"
-                control={<Radio />}
-                label="Tourist"
-              />
-              <FormControlLabel
-                value="guide"
-                control={<Radio />}
-                label="Guide"
-              />
+              <Row>
+                <FormControlLabel
+                  value="tourist"
+                  control={<Radio />}
+                  label="Tourist"
+                />
+                <FormControlLabel
+                  value="guide"
+                  control={<Radio />}
+                  label="Guide"
+                />
+              </Row>
             </RadioGroup>
           </FormControl>
+          {guideFields}
           <p></p>
           <Button type="submit" fullWidth variant="contained" color="primary">
             Sign Up
@@ -159,9 +171,79 @@ class SignupForm extends Component {
       </article>
     );
   }
+
+  getExtraGuideFields() {
+    return (
+      <div>
+        <Typography variant="h6" align="center"></Typography>
+        <TextField
+          id="age"
+          name="age"
+          label="Age"
+          type="number"
+          required
+          fullWidth
+          rows="1"
+          value={this.props.age}
+          onChange={this.changeFormHandler.bind(this)}
+          variant="outlined"
+        />
+        <FormControl component="fieldset">
+          <FormLabel component="legend"></FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            name="gender"
+            onChange={this.changeFormHandler.bind(this)}
+          >
+            <Row>
+              <FormControlLabel value="M" control={<Radio />} label="Man" />
+              <FormControlLabel value="F" control={<Radio />} label="Woman" />
+            </Row>
+          </RadioGroup>
+        </FormControl>
+      </div>
+    );
+  }
 }
 
-export default function SignUp() {
+class extraGuideFields extends Component {
+  render() {
+    return (
+      <div>
+        {/* <Typography variant="h6" align="center">
+        Gender
+      </Typography> */}
+        <TextField
+          id="age"
+          name="age"
+          label="Age"
+          type="number"
+          required
+          fullWidth
+          rows="1"
+          // value={props.age}
+          // onChange={this.changeFormHandler.bind(this)}
+          variant="outlined"
+        />
+        <FormControl component="fieldset">
+          <FormLabel component="legend"></FormLabel>
+          <RadioGroup aria-label="gender" name="gender1">
+            <Row>
+              <FormControlLabel value="Man" control={<Radio />} label="Man" />
+              <FormControlLabel
+                value="Woman"
+                control={<Radio />}
+                label="Woman"
+              />
+            </Row>
+          </RadioGroup>
+        </FormControl>
+      </div>
+    );
+  }
+}
+
+export default function SignUp(props) {
   const classes = useStyles();
 
   return (
@@ -178,7 +260,14 @@ export default function SignUp() {
           <SignupForm
             onSubmit={formData => {
               console.log(formData);
-              fetch("/api/signup", {
+              let apiUrl;
+              if (formData.userType === "tourist") {
+                apiUrl = "/api/signup";
+              } else {
+                apiUrl = "/api/signup/guide";
+              }
+
+              fetch(apiUrl, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 // mode: 'cors', // no-cors, *cors, same-origin
                 // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -191,6 +280,8 @@ export default function SignUp() {
                 // referrer: 'no-referrer', // no-referrer, *client
                 body: JSON.stringify(formData) // body data type must match "Content-Type" header
               });
+
+              props.history.push("/");
             }}
           ></SignupForm>
 
