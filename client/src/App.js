@@ -15,6 +15,7 @@ import { createBrowserHistory } from "history";
 
 import { SessionContext, getSessionCookie } from "./session";
 import ProposalForm from "./components/proposalform/ProposalForm";
+import MatchCompleted from "./components/tourproposals/MatchCompleted";
 
 const history = createBrowserHistory();
 
@@ -22,6 +23,7 @@ const Routes = () => {
   // const [test, setTest] = useState(3);
   const [session, setSession] = useState(getSessionCookie());
   const [selectedTourRequest, setSelectedTourRequest] = useState(null);
+  const [selectedTourProposal, setSelectedTourProposal] = useState(null);
 
   // const [session, setSession] = useState(69);
   // console.log(session);
@@ -66,9 +68,27 @@ const Routes = () => {
             render={props => <Login {...props} setSessionDown={setSession} />}
           /> */}
           <Route exact path="/" component={LandingPage} />
-          <Route path="/tourproposals" component={TourProposals} />
+          <Route
+            path="/tourproposals"
+            render={props => (
+              <TourProposals
+                {...props}
+                setSelectedTourProposal={setSelectedTourProposal}
+              />
+            )}
+          />
+          <Route
+            path="/matchcomplete"
+            render={props => (
+              <MatchCompleted
+                history={history}
+                selectedTourProposal={selectedTourProposal}
+              />
+            )}
+          />
           <Route path="/tourform" component={TourForm} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/matchcomplete" component={MatchCompleted} />
           <Route
             path="/proposalform"
             render={props => (
@@ -103,28 +123,11 @@ const Routes = () => {
 };
 
 function App() {
-  // const [session, setSession] = useState(getSessionCookie());
-  // useEffect(
-  //   () => {
-  //     setSession(getSessionCookie());
-  //   },
-  //   // [session]
-  //   []
-  // );
-
   return (
     <div className="App">
       <Routes />
     </div>
   );
 }
-
-const ProtectedHandler = () => {
-  return (
-    <div>
-      <Link to="/tourrequests">Go to cardview here</Link>
-    </div>
-  );
-};
 
 export default App;
