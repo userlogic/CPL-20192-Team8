@@ -55,11 +55,11 @@ export default class TourProposals extends Component {
           description: "dfasdfasf",
           guide: {
             age: 19,
-            first_name: "Bob",
+            first_name: "asdf",
             guide_id: 7,
             guide_location_id: 50,
-            picture_path: "avatars/man_20.png",
-            sex: "M"
+            picture_path: "avatars/woman_20.png",
+            sex: "F"
           }
         }
       ],
@@ -177,11 +177,13 @@ export default class TourProposals extends Component {
 const cardStyles = makeStyles(theme => ({
   card: {
     boxShadow: "0 3px 5px 2px lightgray",
-    marginBottom: 12,
+    marginLeft: theme.spacing(2),
     width: "auto",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+
   },
   title: {
     fontSize: 14
@@ -190,12 +192,12 @@ const cardStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   header: {
-    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)"
+    background: "linear-gradient(to right, #48c6ef 0%, #6f86d6 100%);"
   },
   menu: {
-    color: "blue",
-    fontweight: 70,
+    color: "black",
     display: "inline-block"
+
   },
   p2: {
     display: "inline-block"
@@ -216,15 +218,15 @@ const SimpleCard = props => {
           {props.requestInfo.date}
         </Typography>
 
-        <p className={classes.menu}> Budget : </p>
+        <b className={classes.menu}> Budget : </b>
         <Typography className={classes.p2}>
           {props.requestInfo.budget}
         </Typography>
         <br />
-        <p className={classes.menu}>Pax : </p>
+        <b className={classes.menu}>Persons : </b>
         <p className={classes.p2}>{props.requestInfo.pax}</p>
         <br />
-        <p className={classes.menu}>Description : </p>
+        <b className={classes.menu}>Description : </b>
         <p className={classes.p2}>{props.requestInfo.description}</p>
       </CardContent>
       <CardActions></CardActions>
@@ -237,6 +239,8 @@ const useStyles = makeStyles(theme => ({
     minWidth: 275,
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     boxShadow: "0 3px 5px 2px lightgray"
   },
   bullet: {
@@ -251,7 +255,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   button: {
-    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)"
+    color:'white',
+    background: "linear-gradient(45deg, #008af7 30%, #48d0f0 90%)"
   }
 }));
 
@@ -276,14 +281,14 @@ function GuideRequest(props) {
       />
       <CardContent>
         <p>
-          <b>Theme:</b> {props.theme}
+          <b>Theme : </b> {props.theme}
         </p>
         <p>
-          <b>Charge: </b>
+          <b>Charge : </b>
           {props.charge}
         </p>
         <p>
-          <b>Description: </b> {props.details}
+          <b>Description : </b> {props.details}
         </p>
       </CardContent>
       <CardActions>
@@ -294,7 +299,7 @@ function GuideRequest(props) {
           }}
           fullWidth
         >
-          Choose
+          choose this guide
         </Button>
       </CardActions>
     </Card>

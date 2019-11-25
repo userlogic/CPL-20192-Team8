@@ -14,7 +14,11 @@ import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+  },
+  bar:{
+    background: "linear-gradient(to left, #e0c3fc 0%, #8ec5fc 100%)",
+    color: "black"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -55,7 +59,7 @@ export default function ButtonAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.bar} position="static">
         <Toolbar>
           <IconButton
             edge="start"
