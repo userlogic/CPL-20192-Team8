@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -159,102 +159,98 @@ const cardStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%" // 16:9
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: red[500],
-  },
+    backgroundColor: red[500]
+  }
 }));
 
 function TourRequestCard(props) {
+  const session = useContext(SessionContext);
   const classes = cardStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-    return (
-      <Card className={classes.card} fullWidth>
-        <CardHeader
-          className={classes.header}
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={props.user}
-        />
+  return (
+    <Card className={classes.card} fullWidth>
+      <CardHeader
+        className={classes.header}
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            {props.user[0].toUpperCase()}
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={props.user}
+      />
+      <CardContent>
+        <div className="comment">
+          <p>
+            <b>Date:</b> {props.date.toString().split("T")[0]}
+          </p>
+          <p>
+            <b>Budget: </b>${props.budget}
+          </p>
+          <p>
+            <b>Location:</b> {props.location}
+          </p>
+          <h3>
+            <font color="white">abc</font>
+          </h3>
+          <div className="comment-footer"></div>
+        </div>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <div className="comment">
-            <p>
-              <b>Date:</b> {props.date.toString().split("T")[0]}
-            </p>
-            <p>
-              <b>Budget: </b>${props.budget}
-            </p>
-            <p>
-              <b>Location:</b> {props.location}
-            </p>
-            <h3>
-              <font color="white">abc</font>
-            </h3>
-            <div className="comment-footer">
-                
-              
-            </div>
-          </div>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
+          <Typography paragraph>{props.description}</Typography>
+          <Button
+            variant="contained"
+            href="#"
+            className="comment-footer-delete"
+            onClick={() => props.onButtonClick(props)}
+            fullWidth
           >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>{props.description}</Typography>
-            <Button
-                  variant="contained"
-                  href="#"
-                  className="comment-footer-delete"
-                  onClick={() => props.onButtonClick(props)}
-                  fullWidth
-                >
-                  APPLY
-                </Button>
-          </CardContent>
-        </Collapse>
-      </Card>
-    );
-  
-
+            APPLY
+          </Button>
+        </CardContent>
+      </Collapse>
+    </Card>
+  );
 }
 
 /*function CommentForm() {
