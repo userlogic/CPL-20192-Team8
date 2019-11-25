@@ -168,6 +168,10 @@ export default class TourProposals extends Component {
             theme={guideRequest.theme}
             charge={guideRequest.price}
             details={guideRequest.description}
+            history={this.props.history}
+            setSelectedTourProposal={this.props.setSelectedTourProposal}
+            startTime={guideRequest.start_time}
+            endTime={guideRequest.end_time}
           />
           <h4></h4>
         </div>
@@ -220,7 +224,7 @@ const SimpleCard = props => {
 
         <b className={classes.menu}> Budget : </b>
         <Typography className={classes.p2}>
-          {props.requestInfo.budget}
+          {"$" + props.requestInfo.budget}
         </Typography>
         <br />
         <b className={classes.menu}>Persons : </b>
@@ -282,11 +286,14 @@ function GuideRequest(props) {
       <Divider light />
       <CardContent>
         <p>
+          <b>Time : </b> {props.startTime + " - " + props.endTime}
+        </p>
+        <p>
           <b>Theme : </b> {props.theme}
         </p>
         <p>
           <b>Charge : </b>
-          {props.charge}
+          {"$" + props.charge}
         </p>
         <p>
           <b>Description : </b> {props.details}
@@ -297,6 +304,7 @@ function GuideRequest(props) {
           className={classes.button}
           onClick={() => {
             props.history.push("/matchcomplete");
+            props.setSelectedTourProposal(props);
           }}
           fullWidth
         >
