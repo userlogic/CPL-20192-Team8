@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import Image from "material-ui-image";
+import Avatar from "@material-ui/core/Avatar";
 import ImageSlider from "./ImageSlider";
 import React, { useState, useContext, useEffect } from "react";
 import { SessionContext } from "../../session";
@@ -40,7 +41,7 @@ export default function LandingPage(props) {
           props.history.push("/tourform");
         }}
       >
-        Let's Go
+        Let's Go!
       </Button>
     );
     button2 = (
@@ -58,6 +59,8 @@ export default function LandingPage(props) {
   return (
     <div>
       <ImageSlider></ImageSlider>
+      <Image src="/slide1.PNG" aspectRatio="1.778"></Image>
+      {/* <Avatar aria-label="avatar" src={"/slide1.PNG"}></Avatar> */}
       {button1}
       {button2}
     </div>
