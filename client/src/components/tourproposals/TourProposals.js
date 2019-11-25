@@ -16,6 +16,8 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+
 import { styled } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -182,8 +184,7 @@ const cardStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-
+    marginBottom: theme.spacing(2)
   },
   title: {
     fontSize: 14
@@ -197,7 +198,6 @@ const cardStyles = makeStyles(theme => ({
   menu: {
     color: "black",
     display: "inline-block"
-
   },
   p2: {
     display: "inline-block"
@@ -255,7 +255,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   button: {
-    color:'white',
+    color: "white",
     background: "linear-gradient(45deg, #008af7 30%, #48d0f0 90%)"
   }
 }));
@@ -279,6 +279,7 @@ function GuideRequest(props) {
         title={props.guide.first_name}
         subheader={props.guide.age + ", " + props.guide.sex}
       />
+      <Divider light />
       <CardContent>
         <p>
           <b>Theme : </b> {props.theme}
