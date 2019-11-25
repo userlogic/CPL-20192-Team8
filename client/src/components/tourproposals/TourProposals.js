@@ -30,6 +30,8 @@ export default class TourProposals extends Component {
   constructor() {
     super();
     this.state = {
+      textAboveCards: "Tour offers",
+      tourRequest: {},
       tourProposals: [
         {
           id: 1,
@@ -89,6 +91,10 @@ export default class TourProposals extends Component {
       .then(response => response.json())
       .then(json => {
         console.log(json);
+        if (json.length === 0) {
+          this.setState({ textAboveCards: "No tour offers yet :(" });
+        }
+
         for (let step = 1; step <= json.length; step++) {
           json[step - 1]["id"] = step;
           // json[step - 1]["location"] = json[step - 1]["location"]["name"];
@@ -99,12 +105,22 @@ export default class TourProposals extends Component {
         // console.log(json[0].application);
         // this.setState({ ...json[0].application });
       });
-  }
 
-  submitClick = () => {
-    console.log("submit");
-    console.log(this.state);
-  };
+    fetch("api/tour-requests/" + user.id)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        for (let step = 1; step <= json.length; step++) {
+          json[step - 1]["id"] = step;
+          // json[step - 1]["location"] = json[step - 1]["location"]["name"];
+          // json[step - 1]["user"] = json[step - 1]["requester"]["first_name"];
+        }
+
+        this.setState({ tourRequest: json });
+        // console.log(json[0].application);
+        // this.setState({ ...json[0].application });
+      });
+  }
 
   onChangeSet = event => {
     this.setState({
@@ -118,12 +134,12 @@ export default class TourProposals extends Component {
 
     return (
       <React.Fragment>
-        <SimpleCard requestInfo={this.state.tourProposals[0].application} />
+        <SimpleCard requestInfo={this.state.tourRequest} />
         <div className="comment-box">
           <Grid container justify="center">
-            <h2>Guide Requests</h2>
+            <h2>{this.state.textAboveCards}</h2>
           </Grid>
-          <div className="comment-list">{tourProposals}</div>;
+          <div className="comment-list">{tourProposals}</div>
           {/* {guideRequestNodes} */}
         </div>
       </React.Fragment>
@@ -244,7 +260,7 @@ function GuideRequest(props) {
   console.log(props);
 
   const avatarPath = "/" + props.guide.picture_path;
-  console.log(avatarPath);
+  // console.log(avatarPath);
 
   return (
     <Card className={classes.card}>
@@ -271,10 +287,20 @@ function GuideRequest(props) {
         </p>
       </CardContent>
       <CardActions>
-        <Button className={classes.button} fullWidth>
-          선택
+        <Button
+          className={classes.button}
+          onClick={() => {
+            props.history.push("/matchcomplete");
+          }}
+          fullWidth
+        >
+          Choose
         </Button>
       </CardActions>
     </Card>
   );
+
+  function onClickChoose(props) {
+    props.history.push("/matchcomplete");
+  }
 }
