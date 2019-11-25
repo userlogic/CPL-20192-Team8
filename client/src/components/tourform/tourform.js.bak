@@ -72,7 +72,7 @@ function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            GPOON
+            TourMatch
           </Typography>
           <Button color="inherit" onClick={() => window.open(<SignIn />)}>Login</Button>
         </Toolbar>

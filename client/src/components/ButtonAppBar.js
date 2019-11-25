@@ -9,10 +9,16 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 // import { useStyles } from "./tourform/tourform";
 import { SessionContext } from "../session";
+// import { Router, Route, Switch, Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
+  },
+  bar: {
+    background: "linear-gradient(to left, #e0c3fc 0%, #8ec5fc 100%)",
+    color: "black"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -53,7 +59,7 @@ export default function ButtonAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.bar} position="static">
         <Toolbar>
           <IconButton
             edge="start"
@@ -63,8 +69,13 @@ export default function ButtonAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            GPOON
+
+          <div>{session.first_name}</div>
+
+          <Typography className={classes.title}>
+            <Link color="inherit" href="/" variant="h6">
+              TourMatch
+            </Link>
           </Typography>
           {loginLogoutButton}
         </Toolbar>

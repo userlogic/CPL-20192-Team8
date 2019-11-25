@@ -28,14 +28,16 @@ router.get("/", async (req, res) => {
 router.post("/guide", async (req, res) => {
   const newGuideRaw = req.body;
 
+  // console.log("Guide route");
+  // console.log(newGuideRaw);
   const newGuide = {
     first_name: newGuideRaw["firstName"],
     last_name: newGuideRaw["lastName"],
     email: newGuideRaw["email"],
     password: newGuideRaw["password"],
     picture_path: newGuideRaw["picture_path"],
-    age: newGuideRaw["age"],
-    sex: newGuideRaw["sex"]
+    age: parseInt(newGuideRaw["age"], 10),
+    sex: newGuideRaw["gender"]
   };
   console.log(newGuide);
   const guide = await Guide.query().insert(newGuide);

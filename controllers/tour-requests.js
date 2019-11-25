@@ -19,6 +19,15 @@ router.get("/cards", async (req, res) => {
   res.json(tourRequests);
 });
 
+router.get("/:id", async (req, res) => {
+  let userId = req.params.id;
+  const tourrequest = await TourRequest.query()
+    .where("requester_id", userId)
+    .eager("[location]")
+    .first();
+  res.json(tourrequest);
+});
+
 router.post("/", async (req, res) => {
   const newTourRequestRaw = req.body;
   console.log(newTourRequestRaw);
