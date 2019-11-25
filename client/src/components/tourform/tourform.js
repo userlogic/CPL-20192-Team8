@@ -232,7 +232,7 @@ const PaxStyles = makeStyles(theme =>({
   text:{
       marginLeft:theme.spacing(3),
       color: 'black',
-      // fontWeight: 'bold',
+       fontWeight: 'bold',
   }
 
 }));

@@ -207,7 +207,7 @@ const SimpleCard = props => {
           {props.requestInfo.budget}
         </Typography>
         <br />
-        <b className={classes.menu}>Pax : </b>
+        <b className={classes.menu}>Persons : </b>
         <p className={classes.p2}>{props.requestInfo.pax}</p>
         <br />
         <b className={classes.menu}>Description : </b>
@@ -265,14 +265,14 @@ function GuideRequest(props) {
       />
       <CardContent>
         <p>
-          <b>Theme:</b> {props.theme}
+          <b>Theme : </b> {props.theme}
         </p>
         <p>
-          <b>Charge: </b>
+          <b>Charge : </b>
           {props.charge}
         </p>
         <p>
-          <b>Description: </b> {props.details}
+          <b>Description : </b> {props.details}
         </p>
       </CardContent>
       <CardActions>
