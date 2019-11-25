@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
   const newTourProposal = {
     prop_tour_request_id: newTourProposalRaw["prop_tour_request_id"],
     prop_guide_id: newTourProposalRaw["prop_guide_id"],
-    price: parseInt(newTourProposalRaw["budget"], 10),
+    price: parseInt(newTourProposalRaw["charge"], 10),
     description: newTourProposalRaw["description"],
     theme: newTourProposalRaw["theme"],
     start_time: newTourProposalRaw["start_time"],
