@@ -112,9 +112,14 @@ export default function SignIn(props) {
         let mutableSession = session;
         mutableSession["id"] = json["user_id"];
         mutableSession["user_type"] = json["user_type"];
+        mutableSession["first_name"] = json["first_name"];
         props.setSessionDown(mutableSession);
 
-        setSessionCookie({ id: json["user_id"], user_type: json["user_type"] });
+        setSessionCookie({
+          id: json["user_id"],
+          user_type: json["user_type"],
+          first_name: json["first_name"]
+        });
         console.log("Login: Set the session cookie.");
         // setToCardView(true);
         if (mutableSession["user_type"] === "guide") {

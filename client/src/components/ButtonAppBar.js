@@ -14,9 +14,9 @@ import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
-  bar:{
+  bar: {
     background: "linear-gradient(to left, #e0c3fc 0%, #8ec5fc 100%)",
     color: "black"
   },
@@ -69,6 +69,8 @@ export default function ButtonAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
+
+          <div>{session.first_name}</div>
 
           <Typography className={classes.title}>
             <Link color="inherit" href="/" variant="h6">
