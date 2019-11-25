@@ -42,7 +42,7 @@ export default class TourProposals extends Component {
             first_name: "Bob",
             guide_id: 7,
             guide_location_id: 50,
-            picture_path: null,
+            picture_path: "avatars/man_20.png",
             sex: "M"
           }
         },
@@ -56,7 +56,7 @@ export default class TourProposals extends Component {
             first_name: "Bob",
             guide_id: 7,
             guide_location_id: 50,
-            picture_path: null,
+            picture_path: "avatars/man_20.png",
             sex: "M"
           }
         }
@@ -243,15 +243,13 @@ function GuideRequest(props) {
   const classes = useStyles();
   console.log(props);
 
+  const avatarPath = "/" + props.guide.picture_path;
+  console.log(avatarPath);
+
   return (
     <Card className={classes.card}>
       <CardHeader
-        avatar={
-          <Avatar
-            aria-label="avatar"
-            src="https://react.semantic-ui.com/images/avatar/small/jenny.jpg"
-          ></Avatar>
-        }
+        avatar={<Avatar aria-label="avatar" src={avatarPath}></Avatar>}
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
