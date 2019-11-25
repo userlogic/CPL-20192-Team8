@@ -56,11 +56,6 @@ const useStyles = makeStyles(theme => ({
 export default function MatchCompleted(props) {
   const classes = useStyles();
 
-  if (!props.selectedTourProposal) {
-    props.history.push("/tourproposals");
-    return null;
-  }
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -69,32 +64,8 @@ export default function MatchCompleted(props) {
           <CheckIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Tour matched!
+          Proposal Completed!
         </Typography>
-
-        {/* <Paper className={classes.Paper}>
-          <Typography component="h1" variant="h5" align="center">
-            Contents
-          </Typography>
-          <br></br>
-
-          {/* <Typography>Tourist: {this.props.user}</Typography>
-          <Typography>Date: {this.props.date}</Typography>
-          <Typography>Budget: {this.props.budget}</Typography>
-          <Typography>Location: {this.props.location}</Typography>
-          <Typography>description: {this.props.description}</Typography> }
-
-          <Typography variant="subtitle1">Date : 2019-11-20</Typography>
-          <Typography variant="subtitle1">
-            Budget : ${props.selectedTourProposal.charge}
-          </Typography>
-          <Typography variant="subtitle1">Location : Seoul</Typography>
-          <Typography variant="subtitle1">
-            Description : delicious food
-          </Typography>
-        </Paper> */}
-
-        <GuideRequest {...props.selectedTourProposal}></GuideRequest>
 
         <Button
           onClick={() => {
@@ -109,44 +80,5 @@ export default function MatchCompleted(props) {
         </Button>
       </div>
     </Container>
-  );
-}
-
-function GuideRequest(props) {
-  const classes = useStyles();
-  console.log(props);
-
-  const avatarPath = "/" + props.guide.picture_path;
-  // console.log(avatarPath);
-
-  return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={<Avatar aria-label="avatar" src={avatarPath}></Avatar>}
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={props.guide.first_name}
-        subheader={props.guide.age + ", " + props.guide.sex}
-      />
-      <Divider light />
-      <CardContent>
-        <p>
-          <b>Time : </b> {props.startTime + " - " + props.endTime}
-        </p>
-        <p>
-          <b>Theme : </b> {props.theme}
-        </p>
-        <p>
-          <b>Charge : </b>
-          {"$" + props.charge}
-        </p>
-        <p>
-          <b>Description : </b> {props.details}
-        </p>
-      </CardContent>
-    </Card>
   );
 }
