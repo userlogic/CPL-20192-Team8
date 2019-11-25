@@ -16,6 +16,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@material-ui/core/styles";
 import {
   // setSessionCookie,
@@ -148,59 +149,46 @@ export default class TourRequestPage extends React.Component {
   }
 } // end CommentBox component
 
-const MyCard = styled(Card)({
-  // maxWidth: 600,
-  // minWidth: 600,
-  border: "warning",
-  fullWidth: true
-});
+const cardStyles = makeStyles(theme => ({
+  card: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    boxShadow: "0 3px 5px 2px lightgray"
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+}));
 
-class TourRequestCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-      setExpanded: 0
-    };
-  }
+function TourRequestCard(props) {
+  const classes = cardStyles();
+  const [expanded, setExpanded] = React.useState(false);
 
-  render() {
-    //const [expanded, setExpanded] = React.useState(false);
-
-    const useStyles = {
-      card: {
-        maxWidth: 600,
-        border: "warning"
-      },
-      media: {
-        height: 0,
-        paddingTop: "56.25%" // 16:9
-      },
-      expand: {
-        transform: "rotate(0deg)",
-        marginLeft: "auto"
-        /*=</coreard>transition: theme.transitions.create('transform', {
-          duration: theme.transitions.duration.shortest,
-        }),*/
-      },
-      expandOpen: {
-        transform: "rotate(180deg)"
-      },
-      avatar: {
-        backgroundColor: red[500]
-      },
-
-      header: {
-        backgroundcolor: "blue"
-      }
-    };
-
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
     return (
-      <MyCard fullWidth>
+      <Card className={classes.card} fullWidth>
         <CardHeader
-          className={useStyles.header}
+          className={classes.header}
           avatar={
-            <Avatar aria-label="recipe" className={useStyles.avatar}>
+            <Avatar aria-label="recipe" className={classes.avatar}>
               R
             </Avatar>
           }
@@ -209,34 +197,25 @@ class TourRequestCard extends React.Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title={this.props.user}
+          title={props.user}
         />
         <CardContent>
           <div className="comment">
             <p>
-              <b>Date:</b> {this.props.date.toString().split("T")[0]}
+              <b>Date:</b> {props.date.toString().split("T")[0]}
             </p>
             <p>
-              <b>Budget: </b>${this.props.budget}
+              <b>Budget: </b>${props.budget}
             </p>
             <p>
-              <b>Location:</b> {this.props.location}
+              <b>Location:</b> {props.location}
             </p>
             <h3>
               <font color="white">abc</font>
             </h3>
             <div className="comment-footer">
-              <Grid container justify="center">
-                <Button
-                  variant="contained"
-                  href="#"
-                  className="comment-footer-delete"
-                  onClick={() => this.props.onButtonClick(this.props)}
-                  color="primary"
-                >
-                  APPLY
-                </Button>
-              </Grid>
+                
+              
             </div>
           </div>
         </CardContent>
@@ -248,35 +227,34 @@ class TourRequestCard extends React.Component {
             <ShareIcon />
           </IconButton>
           <IconButton
-            className={clsx(useStyles.expand, {
-              [useStyles.expandOpen]: this.state.expanded
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded
             })}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
             aria-label="show more"
           >
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
-        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>{this.props.description}</Typography>
+            <Typography paragraph>{props.description}</Typography>
+            <Button
+                  variant="contained"
+                  href="#"
+                  className="comment-footer-delete"
+                  onClick={() => props.onButtonClick(props)}
+                  fullWidth
+                >
+                  APPLY
+                </Button>
           </CardContent>
         </Collapse>
-      </MyCard>
+      </Card>
     );
-  }
+  
 
-  _seleteComment = () => {
-    console.log(this.props.tour_request_id);
-    alert("-- SELETE Comment Functionality COMMING SOON...");
-  };
-
-  handleExpandClick = () => {
-    this.setState({
-      expanded: !this.state.expanded
-    });
-  };
 }
 
 /*function CommentForm() {
