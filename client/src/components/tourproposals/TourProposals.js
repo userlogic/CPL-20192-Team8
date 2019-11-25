@@ -16,6 +16,8 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+
 import { styled } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -166,6 +168,10 @@ export default class TourProposals extends Component {
             theme={guideRequest.theme}
             charge={guideRequest.price}
             details={guideRequest.description}
+            history={this.props.history}
+            setSelectedTourProposal={this.props.setSelectedTourProposal}
+            startTime={guideRequest.start_time}
+            endTime={guideRequest.end_time}
           />
           <h4></h4>
         </div>
@@ -182,8 +188,7 @@ const cardStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-
+    marginBottom: theme.spacing(2)
   },
   title: {
     fontSize: 14
@@ -197,7 +202,6 @@ const cardStyles = makeStyles(theme => ({
   menu: {
     color: "black",
     display: "inline-block"
-
   },
   p2: {
     display: "inline-block"
@@ -220,7 +224,7 @@ const SimpleCard = props => {
 
         <b className={classes.menu}> Budget : </b>
         <Typography className={classes.p2}>
-          {props.requestInfo.budget}
+          {"$" + props.requestInfo.budget}
         </Typography>
         <br />
         <b className={classes.menu}>Persons : </b>
@@ -255,7 +259,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   button: {
-    color:'white',
+    color: "white",
     background: "linear-gradient(45deg, #008af7 30%, #48d0f0 90%)"
   }
 }));
@@ -279,13 +283,17 @@ function GuideRequest(props) {
         title={props.guide.first_name}
         subheader={props.guide.age + ", " + props.guide.sex}
       />
+      <Divider light />
       <CardContent>
+        <p>
+          <b>Time : </b> {props.startTime + " - " + props.endTime}
+        </p>
         <p>
           <b>Theme : </b> {props.theme}
         </p>
         <p>
           <b>Charge : </b>
-          {props.charge}
+          {"$" + props.charge}
         </p>
         <p>
           <b>Description : </b> {props.details}
@@ -296,6 +304,7 @@ function GuideRequest(props) {
           className={classes.button}
           onClick={() => {
             props.history.push("/matchcomplete");
+            props.setSelectedTourProposal(props);
           }}
           fullWidth
         >
