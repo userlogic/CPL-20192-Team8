@@ -16,6 +16,8 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+
 import { styled } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -30,6 +32,8 @@ export default class TourProposals extends Component {
   constructor() {
     super();
     this.state = {
+      textAboveCards: "Tour offers",
+      tourRequest: {},
       tourProposals: [
         {
           id: 1,
@@ -42,7 +46,7 @@ export default class TourProposals extends Component {
             first_name: "Bob",
             guide_id: 7,
             guide_location_id: 50,
-            picture_path: null,
+            picture_path: "avatars/man_20.png",
             sex: "M"
           }
         },
@@ -53,11 +57,11 @@ export default class TourProposals extends Component {
           description: "dfasdfasf",
           guide: {
             age: 19,
-            first_name: "Bob",
+            first_name: "asdf",
             guide_id: 7,
             guide_location_id: 50,
-            picture_path: null,
-            sex: "M"
+            picture_path: "avatars/woman_20.png",
+            sex: "F"
           }
         }
       ],
@@ -89,6 +93,10 @@ export default class TourProposals extends Component {
       .then(response => response.json())
       .then(json => {
         console.log(json);
+        if (json.length === 0) {
+          this.setState({ textAboveCards: "No tour offers yet :(" });
+        }
+
         for (let step = 1; step <= json.length; step++) {
           json[step - 1]["id"] = step;
           // json[step - 1]["location"] = json[step - 1]["location"]["name"];
@@ -99,12 +107,22 @@ export default class TourProposals extends Component {
         // console.log(json[0].application);
         // this.setState({ ...json[0].application });
       });
-  }
 
-  submitClick = () => {
-    console.log("submit");
-    console.log(this.state);
-  };
+    fetch("api/tour-requests/" + user.id)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        for (let step = 1; step <= json.length; step++) {
+          json[step - 1]["id"] = step;
+          // json[step - 1]["location"] = json[step - 1]["location"]["name"];
+          // json[step - 1]["user"] = json[step - 1]["requester"]["first_name"];
+        }
+
+        this.setState({ tourRequest: json });
+        // console.log(json[0].application);
+        // this.setState({ ...json[0].application });
+      });
+  }
 
   onChangeSet = event => {
     this.setState({
@@ -118,12 +136,12 @@ export default class TourProposals extends Component {
 
     return (
       <React.Fragment>
-        <SimpleCard requestInfo={this.state.tourProposals[0].application} />
+        <SimpleCard requestInfo={this.state.tourRequest} />
         <div className="comment-box">
           <Grid container justify="center">
-            <h2>Guide Requests</h2>
+            <h2>{this.state.textAboveCards}</h2>
           </Grid>
-          <div className="comment-list">{tourProposals}</div>;
+          <div className="comment-list">{tourProposals}</div>
           {/* {guideRequestNodes} */}
         </div>
       </React.Fragment>
@@ -150,6 +168,10 @@ export default class TourProposals extends Component {
             theme={guideRequest.theme}
             charge={guideRequest.price}
             details={guideRequest.description}
+            history={this.props.history}
+            setSelectedTourProposal={this.props.setSelectedTourProposal}
+            startTime={guideRequest.start_time}
+            endTime={guideRequest.end_time}
           />
           <h4></h4>
         </div>
@@ -161,11 +183,12 @@ export default class TourProposals extends Component {
 const cardStyles = makeStyles(theme => ({
   card: {
     boxShadow: "0 3px 5px 2px lightgray",
-    marginBottom: 12,
+    marginLeft: theme.spacing(2),
     width: "auto",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   title: {
     fontSize: 14
@@ -174,11 +197,10 @@ const cardStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   header: {
-    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)"
+    background: "linear-gradient(to right, #48c6ef 0%, #6f86d6 100%);"
   },
   menu: {
-    color: "blue",
-    fontweight: 70,
+    color: "black",
     display: "inline-block"
   },
   p2: {
@@ -200,15 +222,15 @@ const SimpleCard = props => {
           {props.requestInfo.date}
         </Typography>
 
-        <p className={classes.menu}> Budget : </p>
+        <b className={classes.menu}> Budget : </b>
         <Typography className={classes.p2}>
-          {props.requestInfo.budget}
+          {"$" + props.requestInfo.budget}
         </Typography>
         <br />
-        <p className={classes.menu}>Pax : </p>
+        <b className={classes.menu}>Persons : </b>
         <p className={classes.p2}>{props.requestInfo.pax}</p>
         <br />
-        <p className={classes.menu}>Description : </p>
+        <b className={classes.menu}>Description : </b>
         <p className={classes.p2}>{props.requestInfo.description}</p>
       </CardContent>
       <CardActions></CardActions>
@@ -221,6 +243,8 @@ const useStyles = makeStyles(theme => ({
     minWidth: 275,
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     boxShadow: "0 3px 5px 2px lightgray"
   },
   bullet: {
@@ -235,7 +259,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   button: {
-    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)"
+    color: "white",
+    background: "linear-gradient(45deg, #008af7 30%, #48d0f0 90%)"
   }
 }));
 
@@ -243,15 +268,13 @@ function GuideRequest(props) {
   const classes = useStyles();
   console.log(props);
 
+  const avatarPath = "/" + props.guide.picture_path;
+  // console.log(avatarPath);
+
   return (
     <Card className={classes.card}>
       <CardHeader
-        avatar={
-          <Avatar
-            aria-label="avatar"
-            src="https://react.semantic-ui.com/images/avatar/small/jenny.jpg"
-          ></Avatar>
-        }
+        avatar={<Avatar aria-label="avatar" src={avatarPath}></Avatar>}
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
@@ -260,23 +283,38 @@ function GuideRequest(props) {
         title={props.guide.first_name}
         subheader={props.guide.age + ", " + props.guide.sex}
       />
+      <Divider light />
       <CardContent>
         <p>
-          <b>Theme:</b> {props.theme}
+          <b>Time : </b> {props.startTime + " - " + props.endTime}
         </p>
         <p>
-          <b>Charge: </b>
-          {props.charge}
+          <b>Theme : </b> {props.theme}
         </p>
         <p>
-          <b>Description: </b> {props.details}
+          <b>Charge : </b>
+          {"$" + props.charge}
+        </p>
+        <p>
+          <b>Description : </b> {props.details}
         </p>
       </CardContent>
       <CardActions>
-        <Button className={classes.button} fullWidth>
-          선택
+        <Button
+          className={classes.button}
+          onClick={() => {
+            props.history.push("/matchcomplete");
+            props.setSelectedTourProposal(props);
+          }}
+          fullWidth
+        >
+          choose this guide
         </Button>
       </CardActions>
     </Card>
   );
+
+  function onClickChoose(props) {
+    props.history.push("/matchcomplete");
+  }
 }

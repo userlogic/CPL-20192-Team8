@@ -24,19 +24,18 @@ export default class ProposalForm extends Component {
   constructor() {
     super();
     this.state = {
-      user: 'taylor',
-      date: '11/11',
-      pax: '3',
-      user_budget: '123',
-      description: 'wewewewe',
-      location: 'daegu',
+      user: "taylor",
+      date: "11/11",
+      pax: "3",
+      user_budget: "123",
+      description: "wewewewe",
+      location: "daegu",
 
-      
-      theme: '',       
-      charge: '',
-      start_time: '12:00',
-      end_time:'13:00',
-      details: '',
+      theme: "",
+      charge: "",
+      start_time: "12:00",
+      end_time: "13:00",
+      details: ""
     };
   }
 
@@ -62,6 +61,8 @@ export default class ProposalForm extends Component {
         tour_request_id: this.props.selectedTourRequest.tour_request_id
       }) // body data type must match "Content-Type" header
     });
+
+    this.props.history.push("/proposalcomplete");
   };
 
   static contextType = SessionContext;
@@ -83,14 +84,14 @@ export default class ProposalForm extends Component {
     }
   }
 
-  onChangeSetStart = (event) => {
+  onChangeSetStart = event => {
     this.setState({
-        [event.target.name]: event.target.value,
-        end_time: event.target.value,
-    })
+      [event.target.name]: event.target.value,
+      end_time: event.target.value
+    });
 
-    console.log(this.state)
-}
+    console.log(this.state);
+  };
   onChangeSet = event => {
     this.setState({
       [event.target.name]: event.target.value //Whats this comma?
@@ -120,10 +121,12 @@ export default class ProposalForm extends Component {
             }}
           />
           <Selects onChangeSet={this.onChangeSet} {...this.state} />
-          <BudgetAndDetails onChangeSet={this.onChangeSet} 
+          <BudgetAndDetails
+            onChangeSet={this.onChangeSet}
             onChangeSetStart={this.onChangeSetStart}
-            submitClick={this.submitClick} 
-            {...this.state}/>
+            submitClick={this.submitClick}
+            {...this.state}
+          />
         </React.Fragment>
       </div>
     );
@@ -277,8 +280,8 @@ function BudgetAndDetails(props) {
     <Container className={classes.grid}>
       <form onSubmit={props.submitClick}>
         <TextField
-          id="budget"
-          name="budget"
+          id="charge"
+          name="charge"
           label="최종 금액"
           type="number"
           required
@@ -291,44 +294,41 @@ function BudgetAndDetails(props) {
         />
 
         <Grid container spacing={2}>
-        <Grid item xs={6}>
-                        <TextField
-                          fullWidth
-                          id="time"
-                          label="Start time"
-                          name="start_time"                         
-                          type="time"
-                          
-                          value={props.start_time}
-                          onChange={props.onChangeSetStart}
-                          className={classes.textField}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            step: 600, // 10 min
-                          }}
-                        />
-                        
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextField
-                          fullWidth
-                          id="time"
-                          label="End time"
-                          name="end_time"                   
-                          type="time"
-                          
-                          value={props.end_time}
-                          onChange={props.onChangeSet}
-                          className={classes.textField}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            step: 600, // 10 min
-                          }}
-                        />
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              id="time"
+              label="Start time"
+              name="start_time"
+              type="time"
+              value={props.start_time}
+              onChange={props.onChangeSetStart}
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true
+              }}
+              inputProps={{
+                step: 600 // 10 min
+              }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              id="time"
+              label="End time"
+              name="end_time"
+              type="time"
+              value={props.end_time}
+              onChange={props.onChangeSet}
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true
+              }}
+              inputProps={{
+                step: 600 // 10 min
+              }}
+            />
           </Grid>
         </Grid>
 

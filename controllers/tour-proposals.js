@@ -6,39 +6,39 @@ const { Location } = require("../models/Location");
 const router = express.Router();
 
 router.get("/all", async (req, res) => {
-  const tourproposals = await Tourproposal.query();
+  const tourproposals = await TourProposal.query();
   res.json(tourproposals);
 });
 
-router.get("/cards", async (req, res) => {
-  const tourproposals = await Tourproposal.query()
-    .eager("[requester, location]")
-    .modifyEager("requester", builder => {
-      builder.select("first_name");
-    });
-  res.json(tourproposals);
-});
+// router.get("/cards", async (req, res) => {
+//   const tourproposals = await TourProposal.query()
+//     .eager("[requester, location]")
+//     .modifyEager("requester", builder => {
+//       builder.select("first_name");
+//     });
+//   res.json(tourproposals);
+// });
 
 router.post("/", async (req, res) => {
-  const newTourproposalRaw = req.body;
-  console.log(newTourproposalRaw);
+  const newTourProposalRaw = req.body;
+  console.log(newTourProposalRaw);
 
   //   const location_id_record = await Location.query().where(
   //     "name",
   //     "=",
-  //     newTourproposalRaw["city"]
+  //     newTourProposalRaw["city"]
   //   );
-  const newTourproposal = {
-    prop_tour_request_id: newTourproposalRaw["prop_tour_request_id"],
-    prop_guide_id: newTourproposalRaw["prop_guide_id"],
-    price: parseInt(newTourproposalRaw["budget"], 10),
-    description: newTourproposalRaw["description"],
-    theme: newTourproposalRaw["theme"],
-    start_time: newTourproposalRaw["start_time"],
-    end_time: newTourproposalRaw["end_time"]
+  const newTourProposal = {
+    prop_tour_request_id: newTourProposalRaw["prop_tour_request_id"],
+    prop_guide_id: newTourProposalRaw["prop_guide_id"],
+    price: parseInt(newTourProposalRaw["charge"], 10),
+    description: newTourProposalRaw["description"],
+    theme: newTourProposalRaw["theme"],
+    start_time: newTourProposalRaw["start_time"],
+    end_time: newTourProposalRaw["end_time"]
   };
 
-  const tourproposal = await Tourproposal.query().insert(newTourproposal);
+  const tourproposal = await TourProposal.query().insert(newTourProposal);
 
   res.send(tourproposal);
 });

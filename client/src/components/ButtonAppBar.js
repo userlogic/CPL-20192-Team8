@@ -11,16 +11,42 @@ import { makeStyles } from "@material-ui/core/styles";
 import { SessionContext } from "../session";
 // import { Router, Route, Switch, Link } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import Grid from "@material-ui/core/Grid";
+import { Container } from "@material-ui/core";
+import {Row} from 'simple-flexbox';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
+  bar: {
+    
+    background: "linear-gradient(to left, #e0c3fc 0%, #8ec5fc 100%)",
+    color: "black"
+  },
   menuButton: {
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    align: 'center',
+    background:'yellow'
+  },
+  Typography:{
+    flexGrow: 1,
+    align: 'center',
+    background:'white',
+    
+    
+  },
+  icon: {
+    color: 'white',
+    
+  },
+  user:{
+    color:'white',
+    marginRight: theme.spacing(1),
   }
 }));
 
@@ -55,7 +81,7 @@ export default function ButtonAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.bar} position="static">
         <Toolbar>
           <IconButton
             edge="start"
@@ -66,11 +92,17 @@ export default function ButtonAppBar(props) {
             <MenuIcon />
           </IconButton>
 
-          <Typography className={classes.title}>
+          
+          <Row className={classes.title}>
+          <Typography className={classes.Typography}>
             <Link color="inherit" href="/" variant="h6">
               TourMatch
             </Link>
           </Typography>
+          
+          <AccountCircleRoundedIcon className={classes.icon}></AccountCircleRoundedIcon>
+          <div className={classes.user}>{session.first_name}</div>
+          </Row>
           {loginLogoutButton}
         </Toolbar>
       </AppBar>

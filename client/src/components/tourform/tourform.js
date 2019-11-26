@@ -21,8 +21,10 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
 import { SessionContext } from "../../session";
-
+import './tourform.css';
+import {Row} from 'simple-flexbox';
 import "date-fns";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,11 +42,14 @@ export default class TourForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
-      budget: 0,
+      count: 1,
+      budget: "",
       details: "",
       tourDate: new Date(),
-      requester_id: -1
+      requester_id: -1,
+      city: "",
+
+      hasError: false,
     };
   }
 
@@ -54,7 +59,7 @@ export default class TourForm extends Component {
     const user = this.context;
     console.log(user);
     console.log(user.id);
-    // console.log(getSessionCookie());
+    //console.log(getSessionCookie());
     if (user.id === undefined) {
       this.props.history.push("/login");
       return;
@@ -70,6 +75,10 @@ export default class TourForm extends Component {
     ev.preventDefault();
     console.log(this.state);
 
+    if(!this.state.city){
+      this.state.hasError = true;
+      return;
+    }
     fetch("/api/tour-requests", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, *cors, same-origin
@@ -97,14 +106,18 @@ export default class TourForm extends Component {
 
   decrementCount = () => {
     this.setState((prevState, props) => {
-      return { count: prevState.count - 1 };
+      if(prevState.count >1){
+        return { count: prevState.count - 1 };
+      }
     });
   };
 
   onChangeSet = event => {
+    if (!(event.target.name === "budget" && event.target.value <= 0)) {
     this.setState({
-      [event.target.name]: event.target.value //Whats this comma?
+      [event.target.name]: event.target.value, //Whats this comma?
     });
+  }
     // console.log(this.state)
   };
 
@@ -122,55 +135,13 @@ export default class TourForm extends Component {
           onChangeSet={this.onChangeSetDate}
           tourDate={this.state.tourDate}
         />
-        <CityDropdown onChangeSet={this.onChangeSet} />
-        <GroupedButtons />
-        <PaxButtons
-          incrementCount={this.incrementCount}
-          decrementCount={this.decrementCount}
-          {...this.state}
-        />
+        
         <BudgetAndDetails
+        incrementCount={this.incrementCount} decrementCount={this.decrementCount}
           onChangeSet={this.onChangeSet}
           onSubmitForm={this.onSubmitForm}
           {...this.state}
         />
-      </div>
-    );
-  }
-}
-
-function ButtonAppBar() {
-  const classes = useStyles();
-  const [toLogin, setToLogin] = React.useState(false);
-
-  if (toLogin === true) {
-    return <Redirect to="/login" />;
-  } else {
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              TourMatch
-            </Typography>
-            <Button
-              color="inherit"
-              onClick={ev => {
-                setToLogin(true);
-              }}
-            >
-              Login
-            </Button>
-          </Toolbar>
-        </AppBar>
       </div>
     );
   }
@@ -187,7 +158,7 @@ function TourDatePicker(props) {
           format="yyyy/MM/dd"
           margin="normal"
           id="date-picker-inline"
-          label="여행 일자"
+          label="Date"
           value={props.tourDate}
           onChange={date => {
             props.onChangeSet(date);
@@ -205,9 +176,11 @@ const SelectStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap"
+
   },
   formControl: {
-    margin: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
     minWidth: 120
   },
   selectEmpty: {
@@ -226,8 +199,9 @@ function CityDropdown(props) {
 
   return (
     <div className={classes.root}>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
+      <FormControl fullWidth required variant="outlined" className={classes.formControl}
+      error={props.hasError}>
+        <InputLabel ref={inputLabel} htmlFor="age-native-required">
           City
         </InputLabel>
         <Select
@@ -237,75 +211,84 @@ function CityDropdown(props) {
           labelWidth={labelWidth}
           inputProps={{
             name: "city",
-            id: "outlined-age-native-simple"
+            id: "age-native-required"
           }}
         >
-          <option value="" />
-          <option value={"Seoul"}>서울</option>
-          <option value={"Busan"}>부산</option>
-          <option value={"Jeju"}>제주</option>
-          <option value={"Daegu"}>대구</option>
-          <option value={"Jeonju"}>전주</option>
-          <option value={"Gyeongju"}>경주</option>
+          <option value=""/>
+          <option value={"Seoul"}>Seoul</option>
+          <option value={"Busan"}>Busan</option>
+          <option value={"Jeju"}>Jeju</option>
+          <option value={"Daegu"}>Daegu</option>
+          <option value={"Jeonju"}>Jeonju</option>
+          <option value={"Gyeongju"}>Gyeongju</option>
         </Select>
       </FormControl>
     </div>
   );
 }
 
-function GroupedButtons() {
-  return (
-    <Grid container spacing={0}>
-      <Grid container spacing={1} justify="center" alignItems="center">
-        <Grid item xs={12}>
-          <ButtonGroup
-            fullWidth
-            color="primary"
-            aria-label="outlined primary button group"
-          >
-            <Button>서울</Button>
-            <Button>부산</Button>
-            <Button>제주</Button>
-            <Button>대구</Button>
-            <Button>경주</Button>
-            <Button>전주</Button>
-          </ButtonGroup>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
-}
+const PaxStyles = makeStyles(theme =>({
 
-class PaxButtons extends React.Component {
-  render() {
+  text:{
+      marginLeft:theme.spacing(3),
+      color: 'black',
+       fontWeight: 'bold',
+  }
+
+}));
+
+
+function PaxButtons(props) {
+  const classes = PaxStyles();
+
     return (
-      <Grid container direction="row">
-        <Button title={"-"} onClick={this.props.decrementCount}>
-          -
-        </Button>
-        <h2>인원 수:{this.props.count}</h2>
-        <Button title={"+"} onClick={this.props.incrementCount}>
-          +
-        </Button>
+    
+      <Grid container alignItems="center" justify="flex-start">
+                <Grid item>
+                <Typography className={classes.text}> Persons &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;</Typography>
+                  </Grid>
+              <Grid item justify="center">
+                    <div className="input-number">
+                      <button type="button" onClick={props.decrementCount}>&minus;</button>
+                      <span>{props.count}</span>
+                      <button type="button" onClick={props.incrementCount}>&#43;</button>     
+                    </div>
+              </Grid>
       </Grid>
     );
-  }
+  
 }
 
-class BudgetAndDetails extends Component {
-  render() {
+const BStyles = makeStyles(theme =>({
+
+  btn:{
+      marginTop: theme.spacing(2),
+      background:'linear-gradient(right, #21d4fd, #b721ff)',
+      color: 'white',
+      fontWeight: 'bold',
+  }
+
+}));
+
+function BudgetAndDetails(props) {
+  const classes = BStyles();
+
     return (
       <Container>
-        <form onSubmit={this.props.onSubmitForm}>
+        <form onSubmit={props.onSubmitForm}>
+          <CityDropdown/>
+          <PaxButtons
+          incrementCount={props.incrementCount} decrementCount={props.decrementCount} count={props.count}/>
           <TextField
             id="budget"
             name="budget"
-            label="예산"
+            label="Budget"
             type="number"
+            fullWidth
             required
             rows="1"
-            value={this.props.budget}
-            onChange={this.props.onChangeSet}
+            value={props.budget}
+            onChange={props.onChangeSet}
             //className={classes.textField}
             margin="normal"
             variant="outlined"
@@ -314,24 +297,25 @@ class BudgetAndDetails extends Component {
           <TextField
             id="details"
             name="details"
-            label="희망 활동"
+            label="Descriptions"
             multiline
             required
             rows="6"
             fullWidth
             helperText="희망 활동/관심사/주의 사항을 적어주세요"
-            value={this.props.details}
-            onChange={this.props.onChangeSet}
+            value={props.details}
+            onChange={props.onChangeSet}
             //className={classes.textField}
             margin="normal"
             variant="outlined"
           />
 
-          <Button type="submit" variant="contained" color="primary">
-            제출
-          </Button>
+          <Button type="submit" variant="contained" className={classes.btn}
+                     fullWidth>
+                        submit
+                    </Button>
         </form>
       </Container>
     );
-  }
+  
 }

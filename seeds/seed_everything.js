@@ -42,7 +42,7 @@ exports.seed = function(knex) {
         {
           first_name: "Lionel",
           last_name: "Nessi",
-          email: "f@f.com",
+          email: "g@g.com",
           password: "abcdef"
         }
       ]);

@@ -17,7 +17,8 @@ router.post("/", async (req, res) => {
     res.send({
       success: 1,
       user_id: customer["customer_id"],
-      user_type: "tourist"
+      user_type: "tourist",
+      first_name: customer["first_name"]
     });
   else res.send({ success: 0 });
 });
@@ -38,7 +39,12 @@ router.post("/guide", async (req, res) => {
     .first();
   console.log(guide);
   if (guide)
-    res.send({ success: 1, user_id: guide["guide_id"], user_type: "guide" });
+    res.send({
+      success: 1,
+      user_id: guide["guide_id"],
+      user_type: "guide",
+      first_name: guide["first_name"]
+    });
   else res.send({ success: 0 });
 });
 

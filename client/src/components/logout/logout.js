@@ -10,7 +10,8 @@ export default function Logout(props) {
 
     let s = session;
     if (s.id !== undefined) {
-      delete s.id;
+      s = {};
+      // delete s.id;
     }
     props.setSessionDown(s);
 
