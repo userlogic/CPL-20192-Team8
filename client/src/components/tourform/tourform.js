@@ -207,7 +207,7 @@ function CityDropdown(props) {
         <Select
           native
           value={props.city} // Functional component: Receive props as parameter, no "this"
-          onChange={props.onChangeSet}
+          onChange={props.onChange}
           labelWidth={labelWidth}
           inputProps={{
             name: "city",
@@ -276,7 +276,8 @@ function BudgetAndDetails(props) {
     return (
       <Container>
         <form onSubmit={props.onSubmitForm}>
-          <CityDropdown/>
+          <CityDropdown
+          onChange={props.onChangeSet}/>
           <PaxButtons
           incrementCount={props.incrementCount} decrementCount={props.decrementCount} count={props.count}/>
           <TextField
