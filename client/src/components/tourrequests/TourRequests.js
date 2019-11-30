@@ -25,10 +25,10 @@ import {
 } from "../../session";
 import { Link } from "react-router-dom";
 import { textAlign } from "@material-ui/system";
-import Divider from '@material-ui/core/Divider';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import Divider from "@material-ui/core/Divider";
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 export default class TourRequestPage extends React.Component {
   static contextType = SessionContext;
 
@@ -155,7 +155,6 @@ export default class TourRequestPage extends React.Component {
 
 const cardStyles = makeStyles(theme => ({
   card: {
-    
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     marginTop: theme.spacing(2),
@@ -179,54 +178,51 @@ const cardStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: "#2F80ED"
   },
-  text:{
+  text: {
     marginTop: theme.spacing(1),
-    textAlign:"center",
+    textAlign: "center"
   },
-  menu:{
+  menu: {
     fontWeight: "bold",
-    textAlign:"center",
-    color:"#021B79"
+    textAlign: "center",
+    color: "#021B79"
   },
-  icons:{
+  icons: {
     //color:"#021B79"
   },
-  dateicon:{
-    color: "#56bacf",
+  dateicon: {
+    color: "#56bacf"
   },
-   locationicon:{
-    color: "#e64353",
-  }, 
-    budgeticon:{
-    color: "#70cb98",
+  locationicon: {
+    color: "#e64353"
+  },
+  budgeticon: {
+    color: "#70cb98"
   },
   btn: {
     background: "linear-gradient(60deg, #56CCF2 0%, #2F80ED 100%);",
-    color:'white'
+    color: "white"
   },
-  persons:{
+  persons: {
     //marginTop: theme.spacing(2),
-    color:"#021B79",
-    fontWeight: "bold",
+    color: "#021B79",
+    fontWeight: "bold"
   },
-  description:{
+  description: {
     marginTop: theme.spacing(1),
-    color:"#021B79",
+    color: "#021B79",
     fontWeight: "bold",
     marginBottom: theme.spacing(2)
-    
-  }, 
+  },
   p2: {
     // display: "inline-block",
-     //marginTop: theme.spacing(2)
-   },
+    //marginTop: theme.spacing(2)
+  },
   p2d: {
     // display: "inline-block",
-     marginTop: theme.spacing(1),
-     marginBottom: theme.spacing(2)
-
-   },
-
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2)
+  }
 }));
 
 function TourRequestCard(props) {
@@ -251,26 +247,33 @@ function TourRequestCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-      title={<h3>{props.user}</h3>}
+        title={<h3>{props.user}</h3>}
       />
-       <Divider fullWidth/>
+      <Divider fullWidth />
       <CardContent>
         <Grid container direction="row">
           <Grid item xs={4}>
-            <DateRangeIcon className={classes.dateicon} fontSize="large"/><p className={classes.menu}>Date</p> 
-          <p className={classes.text}>{props.date.toString().split("T")[0]}</p></Grid>
-          
+            <DateRangeIcon className={classes.dateicon} fontSize="large" />
+            <p className={classes.menu}>Date</p>
+            <p className={classes.text}>
+              {props.date.toString().split("T")[0]}
+            </p>
+          </Grid>
+
           <Grid item xs={4}>
-           <LocationOnIcon className={classes.locationicon} fontSize="large"/> <p className={classes.menu}>Location</p> 
-           <p className={classes.text}>{props.location}</p>
-            </Grid>
-          
+            <LocationOnIcon className={classes.locationicon} fontSize="large" />{" "}
+            <p className={classes.menu}>Location</p>
+            <p className={classes.text}>{props.location}</p>
+          </Grid>
+
           <Grid item xs={4}>
-            <MonetizationOnIcon className={classes.budgeticon} fontSize="large"/> 
-            <p className={classes.menu}>Budget</p> 
+            <MonetizationOnIcon
+              className={classes.budgeticon}
+              fontSize="large"
+            />
+            <p className={classes.menu}>Budget</p>
             <p className={classes.text}>${props.budget}</p>
           </Grid>
-          
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
@@ -293,14 +296,14 @@ function TourRequestCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-            <Grid container direction="row">
+          <Grid container direction="row">
             <p className={classes.persons}>Persons &nbsp; </p>
             <p className={classes.p2}>{props.pax}</p>
-            </Grid>
-            <Grid container direction="row">
+          </Grid>
+          <Grid container direction="row">
             <p className={classes.description}>Description &nbsp; </p>
             <p className={classes.p2d}>{props.description}</p>
-            </Grid>
+          </Grid>
           <Button
             variant="contained"
             href="#"

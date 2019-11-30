@@ -51,9 +51,9 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2)
   },
-  card:{
+  card: {
     marginTop: theme.spacing(3),
-    boxShadow: "0 3px 5px 2px lightgray",
+    boxShadow: "0 3px 5px 2px lightgray"
   }
 }));
 

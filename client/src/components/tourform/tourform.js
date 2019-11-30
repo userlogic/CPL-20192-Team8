@@ -21,8 +21,8 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import TextField from "@material-ui/core/TextField";
 import { Container } from "@material-ui/core";
 import { SessionContext } from "../../session";
-import './tourform.css';
-import {Row} from 'simple-flexbox';
+import "./tourform.css";
+import { Row } from "simple-flexbox";
 import "date-fns";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
@@ -49,7 +49,7 @@ export default class TourForm extends Component {
       requester_id: -1,
       city: "",
 
-      hasError: false,
+      hasError: false
     };
   }
 
@@ -75,7 +75,7 @@ export default class TourForm extends Component {
     ev.preventDefault();
     console.log(this.state);
 
-    if(!this.state.city){
+    if (!this.state.city) {
       this.state.hasError = true;
       return;
     }
@@ -106,7 +106,7 @@ export default class TourForm extends Component {
 
   decrementCount = () => {
     this.setState((prevState, props) => {
-      if(prevState.count >1){
+      if (prevState.count > 1) {
         return { count: prevState.count - 1 };
       }
     });
@@ -114,10 +114,10 @@ export default class TourForm extends Component {
 
   onChangeSet = event => {
     if (!(event.target.name === "budget" && event.target.value <= 0)) {
-    this.setState({
-      [event.target.name]: event.target.value, //Whats this comma?
-    });
-  }
+      this.setState({
+        [event.target.name]: event.target.value //Whats this comma?
+      });
+    }
     // console.log(this.state)
   };
 
@@ -135,9 +135,10 @@ export default class TourForm extends Component {
           onChangeSet={this.onChangeSetDate}
           tourDate={this.state.tourDate}
         />
-        
+
         <BudgetAndDetails
-        incrementCount={this.incrementCount} decrementCount={this.decrementCount}
+          incrementCount={this.incrementCount}
+          decrementCount={this.decrementCount}
           onChangeSet={this.onChangeSet}
           onSubmitForm={this.onSubmitForm}
           {...this.state}
@@ -176,7 +177,6 @@ const SelectStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap"
-
   },
   formControl: {
     marginBottom: theme.spacing(2),
@@ -199,8 +199,13 @@ function CityDropdown(props) {
 
   return (
     <div className={classes.root}>
-      <FormControl fullWidth required variant="outlined" className={classes.formControl}
-      error={props.hasError}>
+      <FormControl
+        fullWidth
+        required
+        variant="outlined"
+        className={classes.formControl}
+        error={props.hasError}
+      >
         <InputLabel ref={inputLabel} htmlFor="age-native-required">
           City
         </InputLabel>
@@ -214,7 +219,7 @@ function CityDropdown(props) {
             id: "age-native-required"
           }}
         >
-          <option value=""/>
+          <option value="" />
           <option value={"Seoul"}>Seoul</option>
           <option value={"Busan"}>Busan</option>
           <option value={"Jeju"}>Jeju</option>
@@ -227,96 +232,102 @@ function CityDropdown(props) {
   );
 }
 
-const PaxStyles = makeStyles(theme =>({
-
-  text:{
-      marginLeft:theme.spacing(3),
-      color: 'black',
-       fontWeight: 'bold',
+const PaxStyles = makeStyles(theme => ({
+  text: {
+    marginLeft: theme.spacing(3),
+    color: "black",
+    fontWeight: "bold"
   }
-
 }));
-
 
 function PaxButtons(props) {
   const classes = PaxStyles();
 
-    return (
-    
-      <Grid container alignItems="center" justify="flex-start">
-                <Grid item>
-                <Typography className={classes.text}> Persons &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;</Typography>
-                  </Grid>
-              <Grid item justify="center">
-                    <div className="input-number">
-                      <button type="button" onClick={props.decrementCount}>&minus;</button>
-                      <span>{props.count}</span>
-                      <button type="button" onClick={props.incrementCount}>&#43;</button>     
-                    </div>
-              </Grid>
+  return (
+    <Grid container alignItems="center" justify="flex-start">
+      <Grid item>
+        <Typography className={classes.text}>
+          {" "}
+          Persons &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp;
+          &emsp;&emsp; &emsp; &emsp;
+        </Typography>
       </Grid>
-    );
-  
+      <Grid item justify="center">
+        <div className="input-number">
+          <button type="button" onClick={props.decrementCount}>
+            &minus;
+          </button>
+          <span>{props.count}</span>
+          <button type="button" onClick={props.incrementCount}>
+            &#43;
+          </button>
+        </div>
+      </Grid>
+    </Grid>
+  );
 }
 
-const BStyles = makeStyles(theme =>({
-
-  btn:{
-      marginTop: theme.spacing(2),
-      background:'linear-gradient(right, #21d4fd, #b721ff)',
-      color: 'white',
-      fontWeight: 'bold',
+const BStyles = makeStyles(theme => ({
+  btn: {
+    marginTop: theme.spacing(2),
+    background: "linear-gradient(right, #21d4fd, #b721ff)",
+    color: "white",
+    fontWeight: "bold"
   }
-
 }));
 
 function BudgetAndDetails(props) {
   const classes = BStyles();
 
-    return (
-      <Container>
-        <form onSubmit={props.onSubmitForm}>
-          <CityDropdown
-          onChange={props.onChangeSet}/>
-          <PaxButtons
-          incrementCount={props.incrementCount} decrementCount={props.decrementCount} count={props.count}/>
-          <TextField
-            id="budget"
-            name="budget"
-            label="Budget"
-            type="number"
-            fullWidth
-            required
-            rows="1"
-            value={props.budget}
-            onChange={props.onChangeSet}
-            //className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
+  return (
+    <Container>
+      <form onSubmit={props.onSubmitForm}>
+        <CityDropdown onChange={props.onChangeSet} />
+        <PaxButtons
+          incrementCount={props.incrementCount}
+          decrementCount={props.decrementCount}
+          count={props.count}
+        />
+        <TextField
+          id="budget"
+          name="budget"
+          label="Budget"
+          type="number"
+          fullWidth
+          required
+          rows="1"
+          value={props.budget}
+          onChange={props.onChangeSet}
+          //className={classes.textField}
+          margin="normal"
+          variant="outlined"
+        />
 
-          <TextField
-            id="details"
-            name="details"
-            label="Descriptions"
-            multiline
-            required
-            rows="6"
-            fullWidth
-            helperText="희망 활동/관심사/주의 사항을 적어주세요"
-            value={props.details}
-            onChange={props.onChangeSet}
-            //className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
+        <TextField
+          id="details"
+          name="details"
+          label="Descriptions"
+          multiline
+          required
+          rows="6"
+          fullWidth
+          helperText="희망 활동/관심사/주의 사항을 적어주세요"
+          value={props.details}
+          onChange={props.onChangeSet}
+          //className={classes.textField}
+          margin="normal"
+          variant="outlined"
+        />
 
-          <Button type="submit" variant="contained" className={classes.btn}
-                     fullWidth>
-                        submit
-                    </Button>
-        </form>
-      </Container>
-    );
-  
+        <Button
+          type="submit"
+          variant="contained"
+          className={classes.btn}
+          fullWidth
+        >
+          submit
+        </Button>
+      </form>
+    </Container>
+  );
 }
