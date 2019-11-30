@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
   //     newTourProposalRaw["city"]
   //   );
   const newTourProposal = {
-    prop_tour_request_id: newTourProposalRaw["prop_tour_request_id"],
+    prop_tour_request_id: newTourProposalRaw["tour_request_id"],
     prop_guide_id: newTourProposalRaw["prop_guide_id"],
     price: parseInt(newTourProposalRaw["charge"], 10),
     description: newTourProposalRaw["description"],

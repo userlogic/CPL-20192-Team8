@@ -139,26 +139,36 @@ export default class TourProposals extends Component {
     });
     //console.log(this.state);
 
-    if(event.target.value==="Price"){
+    if(event.target.value!=="default"){
       const tourProposalscopy = [].concat(this.state.tourProposals)
-    .sort((a, b) => a.price - b.price)
-    
+    .sort((a, b) => {
+      if (event.target.value==="Price") {
+          return a.price - b.price;
+      }
+      if (event.target.value==="Time") {
+        let start_time_a = a.start_time;
+        let start_time_b = b.start_time;
+        if(start_time_a.length===4)
+          start_time_a = "0"+ start_time_a;
+          if(start_time_b.length===4)
+          start_time_b = "0"+ start_time_b;
+          if(start_time_a < start_time_b) 
+            return -1;
+          if(start_time_a > start_time_b)
+            return 1;
+          return 0;
+      }
 
-    
-    
+    })
     .map((item, i) => 
         {
           item["key"]=i+1;
           return item;
         }
       );
-
         this.state.tourProposals=tourProposalscopy;
         console.log(tourProposalscopy);
     }
-
-
-    
   };
 
   

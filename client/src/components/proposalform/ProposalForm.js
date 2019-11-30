@@ -48,7 +48,7 @@ export default class ProposalForm extends Component {
     console.log("submit");
     console.log(this.state);
 
-    fetch("/api/tour-requests", {
+    fetch("/api/tour-proposals", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, *cors, same-origin
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
