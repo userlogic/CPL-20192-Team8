@@ -33,7 +33,7 @@ export default class TourProposals extends Component {
   constructor() {
     super();
     this.state = {
-      sorting: "default",
+      sorting:"default",
       textAboveCards: "Tour offers",
       tourRequest: {},
       tourProposals: [
@@ -139,32 +139,39 @@ export default class TourProposals extends Component {
     });
     //console.log(this.state);
 
-    const tourProposalscopy = []
-      .concat(this.state.tourProposals)
-      .sort((a, b) => {
-        if (event.target.value === "default") {
-          return a.id - b.id;
-        }
-        if (event.target.value === "Price") {
+    if(event.target.value!=="default"){
+      const tourProposalscopy = [].concat(this.state.tourProposals)
+    .sort((a, b) => {
+      if (event.target.value==="Price") {
           return a.price - b.price;
-        }
-        if (event.target.value === "Time") {
-          let start_time_a = a.start_time;
-          let start_time_b = b.start_time;
-          if (start_time_a.length === 4) start_time_a = "0" + start_time_a;
-          if (start_time_b.length === 4) start_time_b = "0" + start_time_b;
-          if (start_time_a < start_time_b) return -1;
-          if (start_time_a > start_time_b) return 1;
+      }
+      if (event.target.value==="Time") {
+        let start_time_a = a.start_time;
+        let start_time_b = b.start_time;
+        if(start_time_a.length===4)
+          start_time_a = "0"+ start_time_a;
+          if(start_time_b.length===4)
+          start_time_b = "0"+ start_time_b;
+          if(start_time_a < start_time_b) 
+            return -1;
+          if(start_time_a > start_time_b)
+            return 1;
           return 0;
+      }
+
+    })
+    .map((item, i) => 
+        {
+          item["key"]=i+1;
+          return item;
         }
-      })
-      .map((item, i) => {
-        item["key"] = i + 1;
-        return item;
-      });
-    this.state.tourProposals = tourProposalscopy;
-    console.log(tourProposalscopy);
+      );
+        this.state.tourProposals=tourProposalscopy;
+        console.log(tourProposalscopy);
+    }
   };
+
+  
 
   render() {
     const tourProposals = this._getTourProposals();
@@ -177,19 +184,19 @@ export default class TourProposals extends Component {
             <h2>{this.state.textAboveCards}</h2>
           </Grid>
           <Select
-            native
-            value={this.state.sorting} // Functional component: Receive props as parameter, no "this"
-            onChange={this.onChangeSet_sorting}
-            // labelWidth={labelWidth}
-            inputProps={{
-              name: "sorting",
-              id: "age-native-required"
-            }}
-          >
-            <option value={"default"}> Submission Date</option>
-            <option value={"Price"}>▲Price</option>
-            <option value={"Time"}>▼Time</option>
-          </Select>
+          native
+          value={this.state.sorting} // Functional component: Receive props as parameter, no "this"
+          onChange={this.onChangeSet_sorting}
+          // labelWidth={labelWidth}
+          inputProps={{
+            name: "sorting",
+            id: "age-native-required"
+          }}
+        >
+          <option value=""/>
+          <option value={"Price"}>▲Price</option>
+          <option value={"Time"}>▼Time</option>
+        </Select>
           <div className="comment-list">{tourProposals}</div>
           {/* {guideRequestNodes} */}
         </div>
@@ -251,7 +258,7 @@ const cardStyles = makeStyles(theme => ({
   menu: {
     color: "black",
     //textAlign: "left",
-    fontWeight: "bold",
+    fontWeight:"bold",
     display: "inline-block"
   },
   p2: {
@@ -266,10 +273,8 @@ const SimpleCard = props => {
 
   return (
     <Card className={classes.card}>
-      <CardHeader
-        className={classes.header}
-        title={<h5>{props.requestInfo.user}</h5>}
-      />
+      <CardHeader className={classes.header} 
+      title={<h5>{props.requestInfo.user}</h5>} />
 
       <CardContent>
         <Typography className={classes.pos} color="textSecondary">
