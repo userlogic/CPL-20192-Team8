@@ -55,7 +55,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
+    background: "linear-gradient(to left, #e0c3fc 0%, #8ec5fc 100%)",
+    color: "black"
   }
 }));
 
