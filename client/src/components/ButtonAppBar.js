@@ -22,9 +22,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   bar: {
-    
-    background: "linear-gradient(to left, #e0c3fc 0%, #8ec5fc 100%)",
-    color: "black"
+    //  background: "#5dbcdf",
+    background: "linear-gradient(45deg, #5D7BDF 0%, #5dbcdf 100%)",
+    color: "white"
   },
   menuButton: {
     marginRight: theme.spacing(2)

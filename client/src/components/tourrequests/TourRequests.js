@@ -204,7 +204,7 @@ const cardStyles = makeStyles(theme => ({
     color: "#70cb98",
   },
   btn: {
-    background: "linear-gradient(60deg, #56CCF2 0%, #2F80ED 100%)",
+    background: "#2F80ED ",
     color:'white'
   },
   persons:{

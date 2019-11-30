@@ -230,7 +230,7 @@ function CityDropdown(props) {
 const PaxStyles = makeStyles(theme =>({
 
   text:{
-      marginLeft:theme.spacing(3),
+      textAlign:"left",
       color: 'black',
        fontWeight: 'bold',
   }
@@ -243,11 +243,11 @@ function PaxButtons(props) {
 
     return (
     
-      <Grid container alignItems="center" justify="flex-start">
-                <Grid item>
-                <Typography className={classes.text}> Persons &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;</Typography>
+      <Grid container direction="row" alignItems="center" justify="flex-start">
+                <Grid item xs={8}>
+                <Typography className={classes.text}> Persons </Typography>
                   </Grid>
-              <Grid item justify="center">
+              <Grid item xs={4}>
                     <div className="input-number">
                       <button type="button" onClick={props.decrementCount}>&minus;</button>
                       <span>{props.count}</span>
@@ -263,7 +263,7 @@ const BStyles = makeStyles(theme =>({
 
   btn:{
       marginTop: theme.spacing(2),
-      background:'linear-gradient(right, #21d4fd, #b721ff)',
+      background:'#5d7bdf',
       color: 'white',
       fontWeight: 'bold',
   }

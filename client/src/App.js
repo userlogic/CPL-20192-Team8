@@ -13,11 +13,11 @@ import TourProposals from "./components/tourproposals/TourProposals";
 
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
-
 import { SessionContext, getSessionCookie } from "./session";
 import ProposalForm from "./components/proposalform/ProposalForm";
 import MatchCompleted from "./components/tourproposals/MatchCompleted";
 import ProposalCompleted from "./components/proposalform/ProposalCompleted";
+import Footer from "./copyright";
 
 const history = createBrowserHistory();
 
@@ -69,6 +69,7 @@ const Routes = () => {
             path="/"
             render={props => <Login {...props} setSessionDown={setSession} />}
           /> */}
+          
           <Route exact path="/" component={LandingPage} />
           <Route
             path="/tourproposals"
@@ -119,6 +120,10 @@ const Routes = () => {
           />
           {/* <Route path="*" component={ProtectedHandler} /> */}
         </Switch>
+        
+        <Route path="/" component={Footer}></Route>
+        
+        
       </Router>
     </SessionContext.Provider>
   );

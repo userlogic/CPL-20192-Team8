@@ -97,10 +97,12 @@ export default class ProposalForm extends Component {
     console.log(this.state);
   };
   onChangeSet = event => {
-    this.setState({
-      [event.target.name]: event.target.value //Whats this comma?
-    });
+    if (!(event.target.name === "charge" && event.target.value <= 0)) {
+      this.setState({
+        [event.target.name]: event.target.value, //Whats this comma?
+      });
     console.log(this.state.start_time);
+    }
   };
 
   onTimeChange(time) {
