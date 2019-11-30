@@ -19,7 +19,11 @@ import CardActions from "@material-ui/core/CardActions";
 // import ShareIcon from "@material-ui/icons/Share";
 import { SessionContext } from "../../session";
 import { Container } from "@material-ui/core";
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import Avatar from "@material-ui/core/Avatar";
 
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 export default class ProposalForm extends Component {
   constructor() {
     super();
@@ -151,14 +155,42 @@ const cardStyles = makeStyles(theme => ({
   header: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)"
   },
-  menu: {
-    color: "blue",
-    fontweight: 70,
-    display: "inline-block"
+  menu:{
+    fontWeight: "bold",
+    textAlign:"center",
+    color:"#021B79"
   },
   p2: {
-    display: "inline-block"
-  }
+   // display: "inline-block",
+    marginTop: theme.spacing(2)
+  },
+  p2d: {
+    // display: "inline-block",
+     marginTop: theme.spacing(1)
+   },
+  dateicon:{
+    color: "#56bacf",
+  },
+   locationicon:{
+    color: "#e64353",
+  }, 
+    budgeticon:{
+    color: "#70cb98",
+  },
+  persons:{
+    marginTop: theme.spacing(2),
+    color:"#021B79",
+    fontWeight: "bold",
+  },
+  description:{
+    marginTop: theme.spacing(1),
+    color:"#021B79",
+    fontWeight: "bold",
+    
+  },
+  avatar: {
+    backgroundColor: "#2F80ED"
+  },
 }));
 
 function SimpleCard(props) {
@@ -172,23 +204,37 @@ function SimpleCard(props) {
 
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.header} title={props2.user} />
+      <CardHeader className={classes.header}
+       title={<h5>{props2.user}</h5>} />
 
       <CardContent>
-        <Typography className={classes.pos} color="textSecondary">
-          {props2.date.toString().split("T")[0]}
-        </Typography>
-
-        <p className={classes.menu}> Budget : </p>
-        <Typography className={classes.p2}>{props2.budget}</Typography>
-        <br />
-        <p className={classes.menu}>Pax : </p>
+      <Grid container direction="row">
+          <Grid item xs={4}>
+            <DateRangeIcon className={classes.dateicon} fontSize="large"/><p className={classes.menu}>Date</p> 
+          <p className={classes.text}>{props2.date.toString().split("T")[0]}</p></Grid>
+          
+          <Grid item xs={4}>
+           <LocationOnIcon className={classes.locationicon} fontSize="large"/> <p className={classes.menu}>Location</p> 
+           <p className={classes.text}>{props2.location}</p>
+            </Grid>
+          
+          <Grid item xs={4}>
+            <MonetizationOnIcon className={classes.budgeticon} fontSize="large"/> 
+            <p className={classes.menu}>Budget</p> 
+            <p className={classes.text}>${props2.budget}</p>
+          </Grid>
+          
+        </Grid>
+        <Grid container direction="row">
+        <p className={classes.persons}>Persons &nbsp; </p>
         <p className={classes.p2}>{props2.pax}</p>
-        <br />
-        <p className={classes.menu}>Description : </p>
-        <p className={classes.p2}>{props2.description}</p>
-      </CardContent>
-      <CardActions></CardActions>
+        </Grid>
+        <Grid container direction="row">
+        <p className={classes.description}>Description &nbsp; </p>
+        <p className={classes.p2d}>{props2.description}</p>
+        </Grid>
+        </CardContent>
+      
     </Card>
   );
 }

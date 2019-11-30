@@ -204,7 +204,28 @@ const cardStyles = makeStyles(theme => ({
     background: "linear-gradient(60deg, #56CCF2 0%, #2F80ED 100%);",
     color:'white'
   },
-  
+  persons:{
+    //marginTop: theme.spacing(2),
+    color:"#021B79",
+    fontWeight: "bold",
+  },
+  description:{
+    marginTop: theme.spacing(1),
+    color:"#021B79",
+    fontWeight: "bold",
+    marginBottom: theme.spacing(2)
+    
+  }, 
+  p2: {
+    // display: "inline-block",
+     //marginTop: theme.spacing(2)
+   },
+  p2d: {
+    // display: "inline-block",
+     marginTop: theme.spacing(1),
+     marginBottom: theme.spacing(2)
+
+   },
 
 }));
 
@@ -272,7 +293,14 @@ function TourRequestCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{props.description}</Typography>
+            <Grid container direction="row">
+            <p className={classes.persons}>Persons &nbsp; </p>
+            <p className={classes.p2}>{props.pax}</p>
+            </Grid>
+            <Grid container direction="row">
+            <p className={classes.description}>Description &nbsp; </p>
+            <p className={classes.p2d}>{props.description}</p>
+            </Grid>
           <Button
             variant="contained"
             href="#"
