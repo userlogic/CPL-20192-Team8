@@ -5,19 +5,18 @@ import ImageSlider from "./ImageSlider";
 import React, { useState, useContext, useEffect } from "react";
 import { SessionContext } from "../../session";
 import { Grid } from "@material-ui/core";
-import { withStyles } from '@material-ui/core/styles';
-import { green, purple } from '@material-ui/core/colors';
+import { withStyles } from "@material-ui/core/styles";
+import { green, purple } from "@material-ui/core/colors";
 
 export default function LandingPage(props) {
-  
   const ColorButton = withStyles(theme => ({
     root: {
       color: theme.palette.getContrastText(purple[500]),
       backgroundColor: "#6417a1",
-      '&:hover': {
-        backgroundColor: "#fdb965",
-      },
-    },
+      "&:hover": {
+        backgroundColor: "#fdb965"
+      }
+    }
   }))(Button);
 
   const session = useContext(SessionContext);
@@ -26,9 +25,8 @@ export default function LandingPage(props) {
   if (!session.id) {
     button1 = (
       <ColorButton
-      className="snip1535"
-      variant="contained"
-      
+        className="snip1535"
+        variant="contained"
         onClick={ev => {
           props.history.push("/login");
         }}
@@ -40,9 +38,8 @@ export default function LandingPage(props) {
   } else if (session.user_type === "guide") {
     button1 = (
       <ColorButton
-      className="snip1535"
-      variant="contained"
-      
+        className="snip1535"
+        variant="contained"
         onClick={ev => {
           props.history.push("/tourrequests");
         }}
@@ -54,9 +51,8 @@ export default function LandingPage(props) {
   } else {
     button1 = (
       <ColorButton
-      className="snip1535"
-      variant="contained"
-      
+        className="snip1535"
+        variant="contained"
         onClick={ev => {
           props.history.push("/tourform");
         }}
@@ -66,9 +62,8 @@ export default function LandingPage(props) {
     );
     button2 = (
       <ColorButton
-      className="snip1535"
-      variant="contained"
-      
+        className="snip1535"
+        variant="contained"
         onClick={ev => {
           props.history.push("/tourproposals");
         }}
@@ -87,7 +82,6 @@ export default function LandingPage(props) {
       <Grid container direction="column" spacing={2}>
         <Grid item>{button1}</Grid>
         <Grid item>{button2}</Grid>
-      
       </Grid>
     </div>
   );

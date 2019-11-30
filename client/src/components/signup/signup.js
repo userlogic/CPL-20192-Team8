@@ -16,7 +16,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import { Column, Row } from "simple-flexbox";
 import FormLabel from "@material-ui/core/FormLabel";
-import './signup.css';
+import "./signup.css";
 // @@@@@@@@@@@--Visual Styling--@@@@@@@@@@@@@@@@
 
 const useStyles = makeStyles(theme => ({
@@ -164,7 +164,13 @@ class SignupForm extends Component {
           </FormControl>
           {guideFields}
           <p></p>
-          <Button type="submit" fullWidth variant="contained" color="inherit" className="btn">
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="inherit"
+            className="btn"
+          >
             Sign Up
           </Button>
         </form>
