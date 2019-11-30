@@ -247,6 +247,8 @@ const cardStyles = makeStyles(theme => ({
   },
   menu: {
     color: "black",
+    //textAlign: "left",
+    fontWeight:"bold",
     display: "inline-block"
   },
   p2: {
@@ -261,14 +263,15 @@ const SimpleCard = props => {
 
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.header} title={props.requestInfo.user} />
+      <CardHeader className={classes.header} 
+      title={<h5>{props.requestInfo.user}</h5>} />
 
       <CardContent>
         <Typography className={classes.pos} color="textSecondary">
           {props.requestInfo.date}
         </Typography>
 
-        <b className={classes.menu}> Budget : </b>
+        <p className={classes.menu}> Budget : </p>
         <Typography className={classes.p2}>
           {"$" + props.requestInfo.budget}
         </Typography>
