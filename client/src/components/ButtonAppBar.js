@@ -15,6 +15,7 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
 import {Row} from 'simple-flexbox';
+import { textAlign } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,13 +31,13 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
-    align: 'center',
+    
     background:'yellow'
   },
   Typography:{
     flexGrow: 1,
-    align: 'center',
-    background:'white',
+    textAlign:"left",
+    
     
     
   },
@@ -55,6 +56,7 @@ export default function ButtonAppBar(props) {
 
   const session = useContext(SessionContext);
   let loginLogoutButton;
+  let accountIcon;
   if (session.id) {
     loginLogoutButton = (
       <Button
@@ -66,8 +68,18 @@ export default function ButtonAppBar(props) {
         Logout
       </Button>
     );
-  } else {
+
+    accountIcon=(
+      <AccountCircleRoundedIcon className={classes.icon}/>
+    );
+
+  } else { 
+    accountIcon=(
+      <p></p>
+    );
+
     loginLogoutButton = (
+      
       <Button
         color="inherit"
         onClick={ev => {
@@ -93,16 +105,17 @@ export default function ButtonAppBar(props) {
           </IconButton>
 
           
-          <Row className={classes.title}>
+          
           <Typography className={classes.Typography}>
             <Link color="inherit" href="/" variant="h6">
               TourMatch
             </Link>
           </Typography>
           
-          <AccountCircleRoundedIcon className={classes.icon}></AccountCircleRoundedIcon>
+          
+          {accountIcon}
           <div className={classes.user}>{session.first_name}</div>
-          </Row>
+          
           {loginLogoutButton}
         </Toolbar>
       </AppBar>

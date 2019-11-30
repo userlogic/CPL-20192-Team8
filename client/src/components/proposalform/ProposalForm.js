@@ -277,8 +277,8 @@ function BudgetAndDetails(props) {
     <Container className={classes.grid}>
       <form onSubmit={props.submitClick}>
         <TextField
-          id="budget"
-          name="budget"
+          id="charge"
+          name="charge"
           label="최종 금액"
           type="number"
           required
