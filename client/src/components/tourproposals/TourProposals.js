@@ -17,6 +17,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
+import Select from "@material-ui/core/Select";
 
 import { styled } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,6 +33,7 @@ export default class TourProposals extends Component {
   constructor() {
     super();
     this.state = {
+      sorting:"default",
       textAboveCards: "Tour offers",
       tourRequest: {},
       tourProposals: [
@@ -131,6 +133,36 @@ export default class TourProposals extends Component {
     console.log(this.state);
   };
 
+  onChangeSet_sorting = event => {
+    this.setState({
+      [event.target.name]: event.target.value //Whats this comma?
+    });
+    //console.log(this.state);
+
+    if(event.target.value==="Price"){
+      const tourProposalscopy = [].concat(this.state.tourProposals)
+    .sort((a, b) => a.price - b.price)
+    
+
+    
+    
+    .map((item, i) => 
+        {
+          item["key"]=i+1;
+          return item;
+        }
+      );
+
+        this.state.tourProposals=tourProposalscopy;
+        console.log(tourProposalscopy);
+    }
+
+
+    
+  };
+
+  
+
   render() {
     const tourProposals = this._getTourProposals();
 
@@ -141,6 +173,20 @@ export default class TourProposals extends Component {
           <Grid container justify="center">
             <h2>{this.state.textAboveCards}</h2>
           </Grid>
+          <Select
+          native
+          value={this.state.sorting} // Functional component: Receive props as parameter, no "this"
+          onChange={this.onChangeSet_sorting}
+          // labelWidth={labelWidth}
+          inputProps={{
+            name: "sorting",
+            id: "age-native-required"
+          }}
+        >
+          <option value=""/>
+          <option value={"Price"}>▲Price</option>
+          <option value={"Time"}>▼Time</option>
+        </Select>
           <div className="comment-list">{tourProposals}</div>
           {/* {guideRequestNodes} */}
         </div>
@@ -266,7 +312,7 @@ const useStyles = makeStyles(theme => ({
 
 function GuideRequest(props) {
   const classes = useStyles();
-  console.log(props);
+  //console.log(props);
 
   const avatarPath = "/" + props.guide.picture_path;
   // console.log(avatarPath);
