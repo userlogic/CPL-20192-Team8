@@ -29,6 +29,8 @@ import Divider from '@material-ui/core/Divider';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import "./tourRequests.css";
+
 export default class TourRequestPage extends React.Component {
   static contextType = SessionContext;
 
@@ -94,10 +96,11 @@ export default class TourRequestPage extends React.Component {
 
     return (
       <div className="comment-box">
-        <Grid container justify="center">
+
+        <Grid container justify="center" className="requestText">
           <Typography>Tour Requests</Typography>
         </Grid>
-        <Typography className="comment-count">
+        <Typography className="comment-count" className="count">
           {this._getTourRequestsTitle(tourRequests.length)}
         </Typography>
         {tourRequestNodes}
@@ -201,7 +204,7 @@ const cardStyles = makeStyles(theme => ({
     color: "#70cb98",
   },
   btn: {
-    background: "linear-gradient(60deg, #56CCF2 0%, #2F80ED 100%);",
+    background: "linear-gradient(60deg, #56CCF2 0%, #2F80ED 100%)",
     color:'white'
   },
   persons:{
@@ -218,7 +221,7 @@ const cardStyles = makeStyles(theme => ({
   }, 
   p2: {
     // display: "inline-block",
-     //marginTop: theme.spacing(2)
+   //  marginTop: theme.spacing(2)
    },
   p2d: {
     // display: "inline-block",
