@@ -19,11 +19,11 @@ import CardActions from "@material-ui/core/CardActions";
 // import ShareIcon from "@material-ui/icons/Share";
 import { SessionContext } from "../../session";
 import { Container } from "@material-ui/core";
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Avatar from "@material-ui/core/Avatar";
 
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 export default class ProposalForm extends Component {
   constructor() {
     super();
@@ -99,9 +99,9 @@ export default class ProposalForm extends Component {
   onChangeSet = event => {
     if (!(event.target.name === "charge" && event.target.value <= 0)) {
       this.setState({
-        [event.target.name]: event.target.value, //Whats this comma?
+        [event.target.name]: event.target.value //Whats this comma?
       });
-    console.log(this.state.start_time);
+      console.log(this.state.start_time);
     }
   };
 
@@ -158,42 +158,41 @@ const cardStyles = makeStyles(theme => ({
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     color: "white"
   },
-  menu:{
+  menu: {
     fontWeight: "bold",
-    textAlign:"center",
-    color:"#021B79"
+    textAlign: "center",
+    color: "#021B79"
   },
   p2: {
-   // display: "inline-block",
+    // display: "inline-block",
     marginTop: theme.spacing(2)
   },
   p2d: {
     // display: "inline-block",
-     marginTop: theme.spacing(1)
-   },
-  dateicon:{
-    color: "#56bacf",
+    marginTop: theme.spacing(1)
   },
-   locationicon:{
-    color: "#e64353",
-  }, 
-    budgeticon:{
-    color: "#70cb98",
+  dateicon: {
+    color: "#56bacf"
   },
-  persons:{
+  locationicon: {
+    color: "#e64353"
+  },
+  budgeticon: {
+    color: "#70cb98"
+  },
+  persons: {
     marginTop: theme.spacing(2),
-    color:"#021B79",
-    fontWeight: "bold",
+    color: "#021B79",
+    fontWeight: "bold"
   },
-  description:{
+  description: {
     marginTop: theme.spacing(1),
-    color:"#021B79",
-    fontWeight: "bold",
-    
+    color: "#021B79",
+    fontWeight: "bold"
   },
   avatar: {
     backgroundColor: "#2F80ED"
-  },
+  }
 }));
 
 function SimpleCard(props) {
@@ -207,37 +206,42 @@ function SimpleCard(props) {
 
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.header}
-       title={<h5>{props2.user}</h5>} />
+      <CardHeader className={classes.header} title={<h5>{props2.user}</h5>} />
 
       <CardContent>
-      <Grid container direction="row">
+        <Grid container direction="row">
           <Grid item xs={4}>
-            <DateRangeIcon className={classes.dateicon} fontSize="large"/><p className={classes.menu}>Date</p> 
-          <p className={classes.text}>{props2.date.toString().split("T")[0]}</p></Grid>
-          
+            <DateRangeIcon className={classes.dateicon} fontSize="large" />
+            <p className={classes.menu}>Date</p>
+            <p className={classes.text}>
+              {props2.date.toString().split("T")[0]}
+            </p>
+          </Grid>
+
           <Grid item xs={4}>
-           <LocationOnIcon className={classes.locationicon} fontSize="large"/> <p className={classes.menu}>Location</p> 
-           <p className={classes.text}>{props2.location}</p>
-            </Grid>
-          
+            <LocationOnIcon className={classes.locationicon} fontSize="large" />{" "}
+            <p className={classes.menu}>Location</p>
+            <p className={classes.text}>{props2.location}</p>
+          </Grid>
+
           <Grid item xs={4}>
-            <MonetizationOnIcon className={classes.budgeticon} fontSize="large"/> 
-            <p className={classes.menu}>Budget</p> 
+            <MonetizationOnIcon
+              className={classes.budgeticon}
+              fontSize="large"
+            />
+            <p className={classes.menu}>Budget</p>
             <p className={classes.text}>${props2.budget}</p>
           </Grid>
-          
         </Grid>
         <Grid container direction="row">
-        <p className={classes.persons}>Persons &nbsp; </p>
-        <p className={classes.p2}>{props2.pax}</p>
+          <p className={classes.persons}>Persons &nbsp; </p>
+          <p className={classes.p2}>{props2.pax}</p>
         </Grid>
         <Grid container direction="row">
-        <p className={classes.description}>Description &nbsp; </p>
-        <p className={classes.p2d}>{props2.description}</p>
+          <p className={classes.description}>Description &nbsp; </p>
+          <p className={classes.p2d}>{props2.description}</p>
         </Grid>
-        </CardContent>
-      
+      </CardContent>
     </Card>
   );
 }
@@ -284,10 +288,10 @@ function Selects(props) {
             }}
           >
             <option value="" />
-            <option value={"K-POP dance"}>K-POP Dance</option>
-            <option value={"Cooking class"}>Cooking Class</option>
+            <option value={"K-Pop"}>K-POP Dance</option>
+            <option value={"Cooking"}>Cooking</option>
             <option value={"temple"}>Temple Stay</option>
-            <option value={"tradition"}>Tradition Tour</option>
+            <option value={"tradition"}>Traditional Tour</option>
             <option value={"arts"}>Arts</option>
             <option value={"etc"}>Etc</option>
           </Select>
@@ -331,7 +335,7 @@ function BudgetAndDetails(props) {
         <TextField
           id="charge"
           name="charge"
-          label="최종 금액"
+          label="Tour fee"
           type="number"
           required
           rows="1"
@@ -385,11 +389,11 @@ function BudgetAndDetails(props) {
           className={classes.details}
           id="details"
           name="details"
-          label="세부 설명"
+          label="Detailed description"
           multiline
           required
           rows="4"
-          helperText="투어의 구체적인 장소, 시간, 진행 설명 등을 작성해주세요"
+          helperText="Write the details of the tour you will provide(fine, place etc.)"
           value={props.details}
           onChange={props.onChangeSet}
           fullWidth
