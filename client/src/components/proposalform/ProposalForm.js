@@ -288,7 +288,7 @@ function Selects(props) {
             }}
           >
             <option value="" />
-            <option value={"K-Pop"}>K-POP Dance</option>
+            <option value={"K-Pop"}>K-Pop Dance</option>
             <option value={"Cooking"}>Cooking</option>
             <option value={"temple"}>Temple Stay</option>
             <option value={"tradition"}>Traditional Tour</option>
