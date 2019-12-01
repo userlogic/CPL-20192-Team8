@@ -204,7 +204,7 @@ const cardStyles = makeStyles(theme => ({
     color: "#70cb98",
   },
   btn: {
-    background: "#2F80ED ",
+    background: "#7F7FD5",
     color:'white'
   },
   persons:{

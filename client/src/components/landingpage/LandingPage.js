@@ -13,7 +13,7 @@ export default function LandingPage(props) {
   const ColorButton = withStyles(theme => ({
     root: {
       color: theme.palette.getContrastText(purple[500]),
-      backgroundColor: "#5D7BDF",
+      backgroundColor: "#5d7bdf",
       '&:hover': {
         backgroundColor: "#5dbcdf",
       },
