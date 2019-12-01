@@ -41,7 +41,7 @@ body {
 }
 .slider__slide-subheading {
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 15px;
   letter-spacing: 2px;
   -webkit-transform: translateY(20px);
   transform: translateY(20px);
@@ -57,7 +57,7 @@ body {
 .slider__slide-heading {
   display: flex;
   margin-bottom: 20px;
-  font-size: 60px;
+  font-size: 40px;
   letter-spacing: 12px;
 }
 .slider__slide-heading span {
