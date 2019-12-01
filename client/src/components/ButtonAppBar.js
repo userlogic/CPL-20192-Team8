@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
   bar: {
     //  background: "#5dbcdf",
-    background: "linear-gradient(45deg, #5D7BDF 0%, #5dbcdf 100%)",
+    background: "#5d7bdf",
     color: "white"
   },
   menuButton: {

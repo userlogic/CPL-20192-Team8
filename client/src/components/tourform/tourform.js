@@ -263,7 +263,7 @@ const BStyles = makeStyles(theme =>({
 
   btn:{
       marginTop: theme.spacing(2),
-      background:'#5d7bdf',
+      background:'linear-gradient(45deg, #5dbcdf 0%, #5D7BDF 100%)',
       color: 'white',
       fontWeight: 'bold',
   }

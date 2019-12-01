@@ -258,8 +258,8 @@ const cardStyles = makeStyles(theme => ({
     color: "black"
   },
   header: {
-    background: "#937DB7",
-    maxHeight: "300px"
+    background: "linear-gradient(45deg,#91EAE4 0%,#6190E8 100%)",
+    //maxHeight: "100px"
   },
   menu: {
     color: "black",
@@ -278,7 +278,7 @@ const cardStyles = makeStyles(theme => ({
     fontSize: "20px"
   },
   icon:{
-    color:"#937DB7"
+    color:"#889EE7"
   }
 }));
 
@@ -299,7 +299,7 @@ const SimpleCard = props => {
           
           <DateRangeIcon className={classes.icon}/>
           <Typography className={classes.pos} >
-            {props.requestInfo.tour_date.toString().split("T")[0]}
+          &nbsp;{props.requestInfo.tour_date.toString().split("T")[0]}
           </Typography>
         </Grid>
         <Grid container xs={6} direction="row">
@@ -307,7 +307,7 @@ const SimpleCard = props => {
           <CreditCardIcon className={classes.icon}/>
           
           <Typography className={classes.p2}>
-            {"$"+ props.requestInfo.budget}
+            &nbsp;{"$"+ props.requestInfo.budget}
           </Typography>
         </Grid>
           
@@ -315,7 +315,7 @@ const SimpleCard = props => {
         <Grid container xs={6}>
             <PeopleIcon className={classes.icon}/>
           <Typography className={classes.p2}>
-            { props.requestInfo.pax}
+          &nbsp;{ props.requestInfo.pax}
           </Typography>
         </Grid>
         <Grid xs={12}>
@@ -355,7 +355,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     color: "white",
-    background: "	linear-gradient(45deg,#876fb0 0%,#c19cff 100%)"
+    background: "	linear-gradient(45deg,#91EAE4 0%,#6190E8 100%)"
   },
   p:{
     textAlign: "left",
