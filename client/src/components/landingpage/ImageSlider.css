@@ -317,10 +317,10 @@ body {
   opacity: 1;
 }
 .snip1535 {
-  background-color: #00b9f1;
+  background-color: 	#b6abe4;
   text-align: center;
   border: none;
-  color: #ffffff;
+  
   cursor: pointer;
   display: inline-block;
   font-family: "BenchNine", Arial, sans-serif;
@@ -333,7 +333,7 @@ body {
   position: relative;
   text-transform: uppercase;
   font-weight: 700;
-  top: 440px;
+  top:30px;
   width: 200px;
 }
 .snip1535:before,
@@ -349,7 +349,7 @@ body {
   width: 24px;
 }
 .snip1535:before {
-  border-color: #2b90d9;
+  border-color: 		#b6abe4;
   border-right-width: 2px;
   border-top-width: 2px;
   right: -5px;
@@ -357,7 +357,7 @@ body {
 }
 .snip1535:after {
   border-bottom-width: 2px;
-  border-color: #2b90d9;
+  border-color: 		#b6abe4;
   border-left-width: 2px;
   bottom: -5px;
   left: -5px;

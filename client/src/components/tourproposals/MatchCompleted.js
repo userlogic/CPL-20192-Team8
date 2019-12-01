@@ -50,6 +50,10 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  card:{
+    marginTop: theme.spacing(3),
+    boxShadow: "0 3px 5px 2px lightgray",
   }
 }));
 
@@ -134,17 +138,17 @@ function GuideRequest(props) {
       <Divider light />
       <CardContent>
         <p>
-          <b>Time : </b> {props.startTime + " - " + props.endTime}
+          <b>Time  </b> {props.startTime + " - " + props.endTime}
         </p>
         <p>
-          <b>Theme : </b> {props.theme}
+          <b>Theme  </b> {props.theme}
         </p>
         <p>
-          <b>Charge : </b>
+          <b>Charge  </b>
           {"$" + props.charge}
         </p>
         <p>
-          <b>Description : </b> {props.details}
+          <b>Description  </b> {props.details}
         </p>
       </CardContent>
     </Card>

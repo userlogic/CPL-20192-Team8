@@ -17,7 +17,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-
+import Select from "@material-ui/core/Select";
+import DateRangeIcon from '@material-ui/icons/DateRange';
 import { styled } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -25,6 +26,10 @@ import {
   // getSessionCookie,
   SessionContext
 } from "../../session";
+import "./tourproposals.css";
+import { Container } from "@material-ui/core";
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import PeopleIcon from '@material-ui/icons/People';
 
 export default class TourProposals extends Component {
   static contextType = SessionContext;
@@ -32,10 +37,12 @@ export default class TourProposals extends Component {
   constructor() {
     super();
     this.state = {
+      sorting:"default",
       textAboveCards: "Tour offers",
-      tourRequest: {},
+      tourRequest: {'tour_date': ""},
       tourProposals: [
         {
+          tour_date: "",
           id: 1,
           theme: "kpop",
           price: 234,
@@ -51,6 +58,7 @@ export default class TourProposals extends Component {
           }
         },
         {
+          tour_date: "",
           id: 2,
           theme: "cooking",
           price: 100,
@@ -70,7 +78,8 @@ export default class TourProposals extends Component {
       pax: "1",
       user_budget: "123",
       description: "wewewewe",
-      location: "daegu"
+      location: "daegu",
+      tour_date: "",
     };
   }
 
@@ -125,11 +134,48 @@ export default class TourProposals extends Component {
   }
 
   onChangeSet = event => {
+    if (!(event.target.name === "budget" && event.target.value <= 0)) {
+      this.setState({
+        [event.target.name]: event.target.value, //Whats this comma?
+      });
+    console.log(this.state);
+    }
+  };
+
+  onChangeSet_sorting = event => {
     this.setState({
       [event.target.name]: event.target.value //Whats this comma?
     });
-    console.log(this.state);
+    //console.log(this.state);
+
+    const tourProposalscopy = []
+      .concat(this.state.tourProposals)
+      .sort((a, b) => {
+        if (event.target.value === "default") {
+          return a.id - b.id;
+        }
+        if (event.target.value === "Price") {
+          return a.price - b.price;
+        }
+        if (event.target.value === "Time") {
+          let start_time_a = a.start_time;
+          let start_time_b = b.start_time;
+          if (start_time_a.length === 4) start_time_a = "0" + start_time_a;
+          if (start_time_b.length === 4) start_time_b = "0" + start_time_b;
+          if (start_time_a < start_time_b) return -1;
+          if (start_time_a > start_time_b) return 1;
+          return 0;
+        }
+      })
+      .map((item, i) => {
+        item["key"] = i + 1;
+        return item;
+      });
+    this.state.tourProposals = tourProposalscopy;
+    console.log(tourProposalscopy);
   };
+
+  
 
   render() {
     const tourProposals = this._getTourProposals();
@@ -140,6 +186,23 @@ export default class TourProposals extends Component {
         <div className="comment-box">
           <Grid container justify="center">
             <h2>{this.state.textAboveCards}</h2>
+          </Grid>
+          <Grid container justify="flex-end">
+          <Select
+            native
+            value={this.state.sorting} // Functional component: Receive props as parameter, no "this"
+            onChange={this.onChangeSet_sorting}
+            // labelWidth={labelWidth}
+            inputProps={{
+              name: "sorting",
+              id: "age-native-required"
+            }}
+            className="select"
+          >
+            <option value={"default"}> 🔽Submission Date</option>
+            <option value={"Price"}>🔼Price</option>
+            <option value={"Time"}>🔽Time</option>
+          </Select>
           </Grid>
           <div className="comment-list">{tourProposals}</div>
           {/* {guideRequestNodes} */}
@@ -190,21 +253,32 @@ const cardStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
   },
-  title: {
-    fontSize: 14
-  },
   pos: {
-    marginBottom: 12
+    marginBottom: 12,
+    color: "black"
   },
   header: {
-    background: "linear-gradient(to right, #48c6ef 0%, #6f86d6 100%);"
+    background: "#937DB7",
+    maxHeight: "300px"
   },
   menu: {
     color: "black",
-    display: "inline-block"
+    //textAlign: "left",
+    fontWeight:"bold",
+   // display: "inline-block",
+    textAlign:"left",
   },
   p2: {
-    display: "inline-block"
+    textAlign:"left",
+    //display: "inline-block",
+    
+  },
+  mytour:{
+    color: 'white',
+    fontSize: "20px"
+  },
+  icon:{
+    color:"#937DB7"
   }
 }));
 
@@ -215,23 +289,44 @@ const SimpleCard = props => {
 
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.header} title={props.requestInfo.user} />
+      <CardHeader className={classes.header} 
+      title={<h5 className={classes.mytour}>My Tour</h5>} />
 
       <CardContent>
-        <Typography className={classes.pos} color="textSecondary">
-          {props.requestInfo.date}
-        </Typography>
 
-        <b className={classes.menu}> Budget : </b>
-        <Typography className={classes.p2}>
-          {"$" + props.requestInfo.budget}
-        </Typography>
-        <br />
-        <b className={classes.menu}>Persons : </b>
-        <p className={classes.p2}>{props.requestInfo.pax}</p>
-        <br />
-        <b className={classes.menu}>Description : </b>
-        <p className={classes.p2}>{props.requestInfo.description}</p>
+      <Grid justify="flex-start" container>
+        <Grid container xs={6} direction="row">
+          
+          <DateRangeIcon className={classes.icon}/>
+          <Typography className={classes.pos} >
+            {props.requestInfo.tour_date.toString().split("T")[0]}
+          </Typography>
+        </Grid>
+        <Grid container xs={6} direction="row">
+          
+          <CreditCardIcon className={classes.icon}/>
+          
+          <Typography className={classes.p2}>
+            {"$"+ props.requestInfo.budget}
+          </Typography>
+        </Grid>
+          
+
+        <Grid container xs={6}>
+            <PeopleIcon className={classes.icon}/>
+          <Typography className={classes.p2}>
+            { props.requestInfo.pax}
+          </Typography>
+        </Grid>
+        <Grid xs={12}>
+            
+          <Typography clasName={classes.p2}>
+            {props.requestInfo.description}
+          </Typography>
+        </Grid>
+        </Grid>
+        
+        
       </CardContent>
       <CardActions></CardActions>
     </Card>
@@ -260,13 +355,26 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     color: "white",
-    background: "linear-gradient(45deg, #008af7 30%, #48d0f0 90%)"
+    background: "	linear-gradient(45deg,#876fb0 0%,#c19cff 100%)"
+  },
+  p:{
+    textAlign: "left",
+   // display: "inline-block",
+    fontWeight:"bold"
+  },
+  p2:{
+    textAlign: "left",
+    marginBottom: theme.spacing(1)
+  },
+  p3:{
+    textAlign: "left",
+    marginTop: theme.spacing(2)
   }
 }));
 
 function GuideRequest(props) {
   const classes = useStyles();
-  console.log(props);
+  //console.log(props);
 
   const avatarPath = "/" + props.guide.picture_path;
   // console.log(avatarPath);
@@ -285,19 +393,31 @@ function GuideRequest(props) {
       />
       <Divider light />
       <CardContent>
-        <p>
-          <b>Time : </b> {props.startTime + " - " + props.endTime}
-        </p>
-        <p>
-          <b>Theme : </b> {props.theme}
-        </p>
-        <p>
-          <b>Charge : </b>
-          {"$" + props.charge}
-        </p>
-        <p>
-          <b>Description : </b> {props.details}
-        </p>
+       <Container>
+        <Grid container direction="row" justify="flex-start">
+            
+
+            <Grid item xs={6} >
+            <p className={classes.p}>
+            Theme </p>
+             <p className={classes.p2}>{props.theme} </p>
+            </Grid>
+            <Grid item xs={6}>
+            <p className={classes.p}>
+            Time  </p>
+            <p className={classes.p2}>{props.startTime + " - " + props.endTime} </p>
+            
+            </Grid>
+            <Grid item xs={7} >
+            <p className={classes.p}>Charge </p>
+            <p className={classes.p2}>{"$" + props.charge}</p>
+            </Grid>
+            
+            <Grid item xs={12}>     
+            <p className={classes.p3}>{props.details}</p>
+            </Grid>
+          </Grid>
+        </Container>
       </CardContent>
       <CardActions>
         <Button

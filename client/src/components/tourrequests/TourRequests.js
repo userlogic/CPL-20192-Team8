@@ -24,6 +24,12 @@ import {
   SessionContext
 } from "../../session";
 import { Link } from "react-router-dom";
+import { textAlign } from "@material-ui/system";
+import Divider from '@material-ui/core/Divider';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import "./tourRequests.css";
 
 export default class TourRequestPage extends React.Component {
   static contextType = SessionContext;
@@ -90,12 +96,13 @@ export default class TourRequestPage extends React.Component {
 
     return (
       <div className="comment-box">
-        <Grid container justify="center">
-          <h2>Tour Requests</h2>
+
+        <Grid container justify="center" className="requestText">
+          <Typography>Tour Requests</Typography>
         </Grid>
-        <h4 className="comment-count">
+        <Typography className="comment-count" className="count">
           {this._getTourRequestsTitle(tourRequests.length)}
-        </h4>
+        </Typography>
         {tourRequestNodes}
       </div>
     );
@@ -151,6 +158,7 @@ export default class TourRequestPage extends React.Component {
 
 const cardStyles = makeStyles(theme => ({
   card: {
+    
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     marginTop: theme.spacing(2),
@@ -172,8 +180,56 @@ const cardStyles = makeStyles(theme => ({
     transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: red[500]
-  }
+    backgroundColor: "#2F80ED"
+  },
+  text:{
+    marginTop: theme.spacing(1),
+    textAlign:"center",
+  },
+  menu:{
+    fontWeight: "bold",
+    textAlign:"center",
+    color:"#021B79"
+  },
+  icons:{
+    //color:"#021B79"
+  },
+  dateicon:{
+    color: "#56bacf",
+  },
+   locationicon:{
+    color: "#e64353",
+  }, 
+    budgeticon:{
+    color: "#70cb98",
+  },
+  btn: {
+    background: "#2F80ED ",
+    color:'white'
+  },
+  persons:{
+    //marginTop: theme.spacing(2),
+    color:"#021B79",
+    fontWeight: "bold",
+  },
+  description:{
+    marginTop: theme.spacing(1),
+    color:"#021B79",
+    fontWeight: "bold",
+    marginBottom: theme.spacing(2)
+    
+  }, 
+  p2: {
+    // display: "inline-block",
+   //  marginTop: theme.spacing(2)
+   },
+  p2d: {
+    // display: "inline-block",
+     marginTop: theme.spacing(1),
+     marginBottom: theme.spacing(2)
+
+   },
+
 }));
 
 function TourRequestCard(props) {
@@ -198,24 +254,27 @@ function TourRequestCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.user}
+      title={<h3>{props.user}</h3>}
       />
+       <Divider fullWidth/>
       <CardContent>
-        <div className="comment">
-          <p>
-            <b>Date:</b> {props.date.toString().split("T")[0]}
-          </p>
-          <p>
-            <b>Budget: </b>${props.budget}
-          </p>
-          <p>
-            <b>Location:</b> {props.location}
-          </p>
-          <h3>
-            <font color="white">abc</font>
-          </h3>
-          <div className="comment-footer"></div>
-        </div>
+        <Grid container direction="row">
+          <Grid item xs={4}>
+            <DateRangeIcon className={classes.dateicon} fontSize="large"/><p className={classes.menu}>Date</p> 
+          <p className={classes.text}>{props.date.toString().split("T")[0]}</p></Grid>
+          
+          <Grid item xs={4}>
+           <LocationOnIcon className={classes.locationicon} fontSize="large"/> <p className={classes.menu}>Location</p> 
+           <p className={classes.text}>{props.location}</p>
+            </Grid>
+          
+          <Grid item xs={4}>
+            <MonetizationOnIcon className={classes.budgeticon} fontSize="large"/> 
+            <p className={classes.menu}>Budget</p> 
+            <p className={classes.text}>${props.budget}</p>
+          </Grid>
+          
+        </Grid>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -237,11 +296,18 @@ function TourRequestCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{props.description}</Typography>
+            <Grid container direction="row">
+            <p className={classes.persons}>Persons &nbsp; </p>
+            <p className={classes.p2}>{props.pax}</p>
+            </Grid>
+            <Grid container direction="row">
+            <p className={classes.description}>Description &nbsp; </p>
+            <p className={classes.p2d}>{props.description}</p>
+            </Grid>
           <Button
             variant="contained"
             href="#"
-            className="comment-footer-delete"
+            className={classes.btn}
             onClick={() => props.onButtonClick(props)}
             fullWidth
           >
