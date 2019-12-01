@@ -18,7 +18,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Select from "@material-ui/core/Select";
-import DateRangeIcon from '@material-ui/icons/DateRange';
+import DateRangeIcon from "@material-ui/icons/DateRange";
 import { styled } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -28,8 +28,8 @@ import {
 } from "../../session";
 import "./tourproposals.css";
 import { Container } from "@material-ui/core";
-import CreditCardIcon from '@material-ui/icons/CreditCard';
-import PeopleIcon from '@material-ui/icons/People';
+import CreditCardIcon from "@material-ui/icons/CreditCard";
+import PeopleIcon from "@material-ui/icons/People";
 
 export default class TourProposals extends Component {
   static contextType = SessionContext;
@@ -37,9 +37,9 @@ export default class TourProposals extends Component {
   constructor() {
     super();
     this.state = {
-      sorting:"default",
+      sorting: "default",
       textAboveCards: "Tour offers",
-      tourRequest: {'tour_date': ""},
+      tourRequest: { tour_date: "" },
       tourProposals: [
         {
           tour_date: "",
@@ -79,7 +79,7 @@ export default class TourProposals extends Component {
       user_budget: "123",
       description: "wewewewe",
       location: "daegu",
-      tour_date: "",
+      tour_date: ""
     };
   }
 
@@ -136,9 +136,9 @@ export default class TourProposals extends Component {
   onChangeSet = event => {
     if (!(event.target.name === "budget" && event.target.value <= 0)) {
       this.setState({
-        [event.target.name]: event.target.value, //Whats this comma?
+        [event.target.name]: event.target.value //Whats this comma?
       });
-    console.log(this.state);
+      console.log(this.state);
     }
   };
 
@@ -175,8 +175,6 @@ export default class TourProposals extends Component {
     console.log(tourProposalscopy);
   };
 
-  
-
   render() {
     const tourProposals = this._getTourProposals();
 
@@ -188,21 +186,21 @@ export default class TourProposals extends Component {
             <h2>{this.state.textAboveCards}</h2>
           </Grid>
           <Grid container justify="flex-end">
-          <Select
-            native
-            value={this.state.sorting} // Functional component: Receive props as parameter, no "this"
-            onChange={this.onChangeSet_sorting}
-            // labelWidth={labelWidth}
-            inputProps={{
-              name: "sorting",
-              id: "age-native-required"
-            }}
-            className="select"
-          >
-            <option value={"default"}> 🔽Submission Date</option>
-            <option value={"Price"}>🔼Price</option>
-            <option value={"Time"}>🔽Time</option>
-          </Select>
+            <Select
+              native
+              value={this.state.sorting} // Functional component: Receive props as parameter, no "this"
+              onChange={this.onChangeSet_sorting}
+              // labelWidth={labelWidth}
+              inputProps={{
+                name: "sorting",
+                id: "age-native-required"
+              }}
+              className="select"
+            >
+              <option value={"default"}> 🔽Submission Date</option>
+              <option value={"Price"}>🔼Price</option>
+              <option value={"Time"}>🔽Time</option>
+            </Select>
           </Grid>
           <div className="comment-list">{tourProposals}</div>
           {/* {guideRequestNodes} */}
@@ -258,27 +256,26 @@ const cardStyles = makeStyles(theme => ({
     color: "black"
   },
   header: {
-    background: "linear-gradient(45deg,#91EAE4 0%,#6190E8 100%)",
+    background: "linear-gradient(45deg,#91EAE4 0%,#6190E8 100%)"
     //maxHeight: "100px"
   },
   menu: {
     color: "black",
     //textAlign: "left",
-    fontWeight:"bold",
-   // display: "inline-block",
-    textAlign:"left",
+    fontWeight: "bold",
+    // display: "inline-block",
+    textAlign: "left"
   },
   p2: {
-    textAlign:"left",
+    textAlign: "left"
     //display: "inline-block",
-    
   },
-  mytour:{
-    color: 'white',
+  mytour: {
+    color: "white",
     fontSize: "20px"
   },
-  icon:{
-    color:"#889EE7"
+  icon: {
+    color: "#889EE7"
   }
 }));
 
@@ -289,44 +286,39 @@ const SimpleCard = props => {
 
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.header} 
-      title={<h5 className={classes.mytour}>My Tour</h5>} />
+      <CardHeader
+        className={classes.header}
+        title={<h5 className={classes.mytour}>My Tour</h5>}
+      />
 
       <CardContent>
+        <Grid justify="flex-start" container>
+          <Grid container xs={6} direction="row">
+            <DateRangeIcon className={classes.icon} />
+            <Typography className={classes.pos}>
+              &nbsp;{props.requestInfo.tour_date.toString().split("T")[0]}
+            </Typography>
+          </Grid>
+          <Grid container xs={6} direction="row">
+            <CreditCardIcon className={classes.icon} />
 
-      <Grid justify="flex-start" container>
-        <Grid container xs={6} direction="row">
-          
-          <DateRangeIcon className={classes.icon}/>
-          <Typography className={classes.pos} >
-          &nbsp;{props.requestInfo.tour_date.toString().split("T")[0]}
-          </Typography>
-        </Grid>
-        <Grid container xs={6} direction="row">
-          
-          <CreditCardIcon className={classes.icon}/>
-          
-          <Typography className={classes.p2}>
-            &nbsp;{"$"+ props.requestInfo.budget}
-          </Typography>
-        </Grid>
-          
+            <Typography className={classes.p2}>
+              &nbsp;{"$" + props.requestInfo.budget}
+            </Typography>
+          </Grid>
 
-        <Grid container xs={6}>
-            <PeopleIcon className={classes.icon}/>
-          <Typography className={classes.p2}>
-          &nbsp;{ props.requestInfo.pax}
-          </Typography>
+          <Grid container xs={6}>
+            <PeopleIcon className={classes.icon} />
+            <Typography className={classes.p2}>
+              &nbsp;{props.requestInfo.pax}
+            </Typography>
+          </Grid>
+          <Grid xs={12}>
+            <Typography clasName={classes.p2}>
+              {props.requestInfo.description}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid xs={12}>
-            
-          <Typography clasName={classes.p2}>
-            {props.requestInfo.description}
-          </Typography>
-        </Grid>
-        </Grid>
-        
-        
       </CardContent>
       <CardActions></CardActions>
     </Card>
@@ -357,16 +349,16 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     background: "	linear-gradient(45deg,#91EAE4 0%,#6190E8 100%)"
   },
-  p:{
+  p: {
     textAlign: "left",
-   // display: "inline-block",
-    fontWeight:"bold"
+    // display: "inline-block",
+    fontWeight: "bold"
   },
-  p2:{
+  p2: {
     textAlign: "left",
     marginBottom: theme.spacing(1)
   },
-  p3:{
+  p3: {
     textAlign: "left",
     marginTop: theme.spacing(2)
   }
@@ -393,28 +385,25 @@ function GuideRequest(props) {
       />
       <Divider light />
       <CardContent>
-       <Container>
-        <Grid container direction="row" justify="flex-start">
-            
-
-            <Grid item xs={6} >
-            <p className={classes.p}>
-            Theme </p>
-             <p className={classes.p2}>{props.theme} </p>
+        <Container>
+          <Grid container direction="row" justify="flex-start">
+            <Grid item xs={6}>
+              <p className={classes.p}>Theme </p>
+              <p className={classes.p2}>{props.theme} </p>
             </Grid>
             <Grid item xs={6}>
-            <p className={classes.p}>
-            Time  </p>
-            <p className={classes.p2}>{props.startTime + " - " + props.endTime} </p>
-            
+              <p className={classes.p}>Time </p>
+              <p className={classes.p2}>
+                {props.startTime + " - " + props.endTime}{" "}
+              </p>
             </Grid>
-            <Grid item xs={7} >
-            <p className={classes.p}>Charge </p>
-            <p className={classes.p2}>{"$" + props.charge}</p>
+            <Grid item xs={7}>
+              <p className={classes.p}>Price </p>
+              <p className={classes.p2}>{"$" + props.charge}</p>
             </Grid>
-            
-            <Grid item xs={12}>     
-            <p className={classes.p3}>{props.details}</p>
+
+            <Grid item xs={12}>
+              <p className={classes.p3}>{props.details}</p>
             </Grid>
           </Grid>
         </Container>
